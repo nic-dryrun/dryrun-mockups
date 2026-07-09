@@ -153,40 +153,37 @@
       <div><strong>New page.</strong> Proposed license visibility surface for customers — showing committer seat consumption at a glance. <span class="ci-new">New</span></div>
     </div>
 
-    <!-- PAGE HEADER with license cards top-right -->
-    <div class="page-header">
-      <div class="page-header-left">
-        <h1>License Usage</h1>
-        <p>Committer seat consumption for the DryRunSec organization</p>
-      </div>
+    <!-- PAGE HEADER -->
+    <div style="margin-bottom:16px;">
+      <h1 style="font-size:22px;font-weight:700;margin-bottom:3px;">License Usage</h1>
+      <p style="font-size:13px;color:var(--text-muted);">Committer seat consumption for the DryRunSec organization</p>
+    </div>
 
-      <!-- LICENSE CARDS -->
-      <div class="license-cards">
-
-        <!-- Committers card: 86/100, 86% used — warning -->
-        <div class="license-card" style="border-color: var(--orange-border);">
-          <div class="lc-header">
-            <div class="lc-title">
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M2 5.5a3.5 3.5 0 115.898 2.549 5.508 5.508 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.494 3.494 0 012 5.5zM11 4a3.001 3.001 0 012.22 5.018 5.01 5.01 0 012.56 3.012.749.749 0 01-.885.954.752.752 0 01-.549-.514 3.507 3.507 0 00-2.522-2.372.75.75 0 01-.574-.73v-.352a.75.75 0 01.416-.672A1.5 1.5 0 0011 5.5.75.75 0 0111 4zm-5.5-.5a2 2 0 100 4 2 2 0 000-4z"/></svg>
-              Committers
-            </div>
-            <span class="lc-badge lc-badge--warn">86% used</span>
-          </div>
-          <div class="lc-numbers">
-            <span class="lc-used lc-used--warn">86</span>
-            <span class="lc-divider">/</span>
-            <span class="lc-total">100</span>
-          </div>
-          <div class="lc-label">unique committers across all scanned repos</div>
-          <div class="lc-bar-track">
-            <div class="lc-bar-fill lc-bar-fill--warn" style="width:86%;"></div>
-          </div>
-          <div class="lc-footer">
-            <span class="lc-remaining lc-remaining--warn">14 seats remaining</span>
-          </div>
+    <!-- LICENSE BANNER -->
+    <div style="display:flex;align-items:center;gap:24px;background:var(--surface);border:1.5px solid var(--orange-border);border-radius:10px;padding:14px 20px;margin-bottom:24px;">
+      <div style="flex-shrink:0;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:4px;display:flex;align-items:center;gap:6px;">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M2 5.5a3.5 3.5 0 115.898 2.549 5.508 5.508 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.494 3.494 0 012 5.5zM11 4a3.001 3.001 0 012.22 5.018 5.01 5.01 0 012.56 3.012.749.749 0 01-.885.954.752.752 0 01-.549-.514 3.507 3.507 0 00-2.522-2.372.75.75 0 01-.574-.73v-.352a.75.75 0 01.416-.672A1.5 1.5 0 0011 5.5.75.75 0 0111 4zm-5.5-.5a2 2 0 100 4 2 2 0 000-4z"/></svg>
+          Committers
         </div>
-      </div><!-- /license-cards -->
-    </div><!-- /page-header -->
+        <div style="display:flex;align-items:baseline;gap:4px;line-height:1;">
+          <span style="font-size:32px;font-weight:800;color:var(--orange);">86</span>
+          <span style="font-size:18px;color:var(--text-muted);">/ 100</span>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:5px;">
+          <span>0</span>
+          <span style="color:var(--orange);font-weight:600;">86 used</span>
+          <span>100</span>
+        </div>
+        <div style="height:8px;background:#f0e8c8;border-radius:4px;overflow:hidden;">
+          <div style="width:86%;height:100%;background:var(--orange);border-radius:4px;"></div>
+        </div>
+      </div>
+      <span style="font-size:12px;font-weight:600;padding:5px 14px;border-radius:10px;background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border);white-space:nowrap;flex-shrink:0;">14 seats remaining</span>
+    </div>
+
 
     <!-- COMMITTERS TABLE -->
     <div class="section">
