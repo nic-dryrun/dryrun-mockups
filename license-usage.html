@@ -294,165 +294,151 @@
       </div>
       <div class="tbl-wrap">
         <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;padding:8px 16px;background:var(--surface-alt);border-bottom:1px solid var(--border-light);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);">
-          <div>Repository</div>
-          <div>Language</div>
-          <div>Last DeepScan</div>
-          <div>Times Scanned</div>
-          <div></div>
+          <div>Repository</div><div>Language</div><div>Last DeepScan</div><div>Times Scanned</div><div></div>
         </div>
-
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
-          <div class="repo-name">DryRunSec/dryrun-api</div>
-          <div style="font-size:12px;color:var(--text-sec);">Go</div>
-          <div style="font-size:12px;color:var(--text-muted);">Today 02:00</div>
-          <div style="font-weight:600;">127</div>
-        </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
-          <div class="repo-name">DryRunSec/reposture</div>
-          <div style="font-size:12px;color:var(--text-sec);">Ruby</div>
-          <div style="font-size:12px;color:var(--text-muted);">Today 02:12</div>
-          <div style="font-weight:600;">89</div>
-        </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
-          <div class="repo-name">DryRunSec/analyzers</div>
-          <div style="font-size:12px;color:var(--text-sec);">Go</div>
-          <div style="font-size:12px;color:var(--text-muted);">Yesterday 02:00</div>
-          <div style="font-weight:600;">43</div>
-        </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
-          <div class="repo-name">DryRunSec/tf-infra</div>
-          <div style="font-size:12px;color:var(--text-sec);">HCL</div>
-          <div style="font-size:12px;color:var(--text-muted);">3 days ago</div>
-          <div style="font-weight:600;">31</div>
-        </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
-          <div class="repo-name">DryRunSec/scanner-agent</div>
-          <div style="font-size:12px;color:var(--text-sec);">Go</div>
-          <div style="font-size:12px;color:var(--text-muted);">5 days ago</div>
-          <div style="font-weight:600;">28</div>
-        </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
-          <div class="repo-name">DryRunSec/policy-engine</div>
-          <div style="font-size:12px;color:var(--text-sec);">Go</div>
-          <div style="font-size:12px;color:var(--text-muted);">1 week ago</div>
-          <div style="font-weight:600;">19</div>
-        </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
-          <div class="repo-name">DryRunSec/admin-panel</div>
-          <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
-          <div style="font-size:12px;color:var(--text-muted);">1 week ago</div>
-          <div style="font-weight:600;">22</div>
-        </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
-          <div class="repo-name">DryRunSec/dashboard-ui</div>
-          <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
-          <div style="font-size:12px;color:var(--text-muted);">2 weeks ago</div>
-          <div style="font-weight:600;">14</div>
-        </div>
-
-        <!-- Available slots -->
-        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;opacity:0.45;">
-          <div style="font-size:12px;color:var(--text-muted);font-style:italic;">12 additional repos available</div>
-          <div></div>
-          <div></div>
-          <div style="font-size:12px;color:var(--text-muted);">—</div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /main -->
-</div><!-- /shell -->
-
-<script>
-function uninstallRepo(btn) {
-  const row = btn.closest('[style*="grid-template-columns"]');
-  const repoName = row.querySelector('.repo-name')?.textContent || 'this repo';
-  btn.textContent = 'Uninstalling...';
-  btn.disabled = true;
-  btn.style.opacity = '0.5';
-  setTimeout(() => {
-    row.style.transition = 'opacity 0.3s';
-    row.style.opacity = '0.2';
-    row.style.pointerEvents = 'none';
-    setTimeout(() => row.style.display = 'none', 300);
-  }, 600);
-}
-</script>
-        <!-- 8 enabled repos -->
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/dryrun-api</div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-size:12px;color:var(--text-muted);">Today 02:00</div>
           <div style="font-weight:600;">127</div>
           <div><button onclick="uninstallRepo(this)" style="font-size:11px;padding:3px 10px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;">Uninstall</button></div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/reposture</div>
           <div style="font-size:12px;color:var(--text-sec);">Ruby</div>
           <div style="font-size:12px;color:var(--text-muted);">Today 02:12</div>
           <div style="font-weight:600;">89</div>
           <div><button onclick="uninstallRepo(this)" style="font-size:11px;padding:3px 10px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;">Uninstall</button></div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/analyzers</div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-size:12px;color:var(--text-muted);">Yesterday 02:00</div>
           <div style="font-weight:600;">43</div>
           <div><button onclick="uninstallRepo(this)" style="font-size:11px;padding:3px 10px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;">Uninstall</button></div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/tf-infra</div>
           <div style="font-size:12px;color:var(--text-sec);">HCL</div>
           <div style="font-size:12px;color:var(--text-muted);">3 days ago</div>
           <div style="font-weight:600;">31</div>
           <div><button onclick="uninstallRepo(this)" style="font-size:11px;padding:3px 10px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;">Uninstall</button></div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/scanner-agent</div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-size:12px;color:var(--text-muted);">5 days ago</div>
           <div style="font-weight:600;">28</div>
           <div><button onclick="uninstallRepo(this)" style="font-size:11px;padding:3px 10px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;">Uninstall</button></div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/policy-engine</div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-size:12px;color:var(--text-muted);">1 week ago</div>
           <div style="font-weight:600;">19</div>
           <div><button onclick="uninstallRepo(this)" style="font-size:11px;padding:3px 10px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;">Uninstall</button></div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/admin-panel</div>
           <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
           <div style="font-size:12px;color:var(--text-muted);">1 week ago</div>
           <div style="font-weight:600;">22</div>
           <div><button onclick="uninstallRepo(this)" style="font-size:11px;padding:3px 10px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;">Uninstall</button></div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:2px solid var(--border);">
+        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/dashboard-ui</div>
           <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
           <div style="font-size:12px;color:var(--text-muted);">2 weeks ago</div>
           <div style="font-weight:600;">14</div>
           <div><button onclick="uninstallRepo(this)" style="font-size:11px;padding:3px 10px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;">Uninstall</button></div>
         </div>
-
-        <!-- 12 available repos (not enabled) -->
         <div style="padding:7px 16px 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);background:var(--surface-alt);border-bottom:1px solid var(--border-light);">Available &mdash; DeepScan not enabled (12 remaining slots)</div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/billing-service</div><div style="font-size:12px;color:var(--text-sec);">Go</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/auth-middleware</div><div style="font-size:12px;color:var(--text-sec);">Go</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/data-pipeline</div><div style="font-size:12px;color:var(--text-sec);">Python</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/metrics-exporter</div><div style="font-size:12px;color:var(--text-sec);">Go</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/terraform-modules</div><div style="font-size:12px;color:var(--text-sec);">HCL</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/scan-worker</div><div style="font-size:12px;color:var(--text-sec);">Go</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/csi-reports</div><div style="font-size:12px;color:var(--text-sec);">TypeScript</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/infra-scripts</div><div style="font-size:12px;color:var(--text-sec);">Shell</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/demo-app</div><div style="font-size:12px;color:var(--text-sec);">JavaScript</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/goat-app</div><div style="font-size:12px;color:var(--text-sec);">Go</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);"><div class="repo-name">DryRunSec/vuln-fixtures</div><div style="font-size:12px;color:var(--text-sec);">Python</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
-        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;"><div class="repo-name">DryRunSec/playground</div><div style="font-size:12px;color:var(--text-sec);">Ruby</div><div style="font-size:12px;color:var(--text-muted);">Not enabled</div><div style="font-size:12px;color:var(--text-muted);">0</div><div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div></div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/billing-service</div>
+          <div style="font-size:12px;color:var(--text-sec);">Go</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/auth-middleware</div>
+          <div style="font-size:12px;color:var(--text-sec);">Go</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/data-pipeline</div>
+          <div style="font-size:12px;color:var(--text-sec);">Python</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/metrics-exporter</div>
+          <div style="font-size:12px;color:var(--text-sec);">Go</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/terraform-modules</div>
+          <div style="font-size:12px;color:var(--text-sec);">HCL</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/scan-worker</div>
+          <div style="font-size:12px;color:var(--text-sec);">Go</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/csi-reports</div>
+          <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/infra-scripts</div>
+          <div style="font-size:12px;color:var(--text-sec);">Shell</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/demo-app</div>
+          <div style="font-size:12px;color:var(--text-sec);">JavaScript</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/goat-app</div>
+          <div style="font-size:12px;color:var(--text-sec);">Go</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border-light);">
+          <div class="repo-name">DryRunSec/vuln-fixtures</div>
+          <div style="font-size:12px;color:var(--text-sec);">Python</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
+        <div style="opacity:0.5;display:grid;grid-template-columns:1fr 110px 160px 130px 120px;align-items:center;padding:9px 16px;">
+          <div class="repo-name">DryRunSec/playground</div>
+          <div style="font-size:12px;color:var(--text-sec);">Ruby</div>
+          <div style="font-size:12px;color:var(--text-muted);">Not enabled</div>
+          <div style="font-size:12px;color:var(--text-muted);">0</div>
+          <div><button style="font-size:11px;padding:3px 10px;border:1px solid var(--green-border);border-radius:6px;background:var(--green-bg);color:var(--green);cursor:pointer;font-family:var(--font);font-weight:500;">Enable</button></div>
+        </div>
       </div>
     </div>
-
 
   </div><!-- /main -->
 </div><!-- /shell -->
@@ -460,7 +446,6 @@ function uninstallRepo(btn) {
 <script>
 function uninstallRepo(btn) {
   const row = btn.closest('[style*="grid-template-columns"]');
-  const repoName = row.querySelector('.repo-name')?.textContent || 'this repo';
   btn.textContent = 'Uninstalling...';
   btn.disabled = true;
   btn.style.opacity = '0.5';
