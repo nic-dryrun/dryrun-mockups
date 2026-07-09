@@ -195,67 +195,114 @@
         <span class="section-sub">by repository (last 90 days) &nbsp;&middot;&nbsp; overlapping committers counted once toward total</span>
       </div>
       <div class="tbl-wrap">
-        <div class="tbl-header" style="display:grid;grid-template-columns:1fr 110px 160px 130px;padding:8px 16px;background:var(--surface-alt);border-bottom:1px solid var(--border-light);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);">
+        <div class="tbl-header" style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;padding:8px 16px;background:var(--surface-alt);border-bottom:1px solid var(--border-light);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);">
           <div>Repository</div>
           <div>Language</div>
           <div>Unique Committers</div>
           <div>Last PR Scan</div>
+          <div></div>
         </div>
-
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/dryrun-api</div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-weight:600;">38</div>
           <div style="font-size:12px;color:var(--text-muted);">Today 11:03</div>
+          <div>
+            <button onclick="confirmUninstall(this, 38)"
+              style="font-size:11px;padding:4px 11px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;white-space:nowrap;">
+              Uninstall
+            </button>
+          </div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/reposture</div>
           <div style="font-size:12px;color:var(--text-sec);">Ruby</div>
           <div style="font-weight:600;">22</div>
           <div style="font-size:12px;color:var(--text-muted);">Yesterday</div>
+          <div>
+            <button onclick="confirmUninstall(this, 22)"
+              style="font-size:11px;padding:4px 11px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;white-space:nowrap;">
+              Uninstall
+            </button>
+          </div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/policy-engine</div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-weight:600;">9</div>
           <div style="font-size:12px;color:var(--text-muted);">2 days ago</div>
+          <div>
+            <button onclick="confirmUninstall(this, 9)"
+              style="font-size:11px;padding:4px 11px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;white-space:nowrap;">
+              Uninstall
+            </button>
+          </div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/admin-panel</div>
           <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
           <div style="font-weight:600;">8</div>
           <div style="font-size:12px;color:var(--text-muted);">3 days ago</div>
+          <div>
+            <button onclick="confirmUninstall(this, 8)"
+              style="font-size:11px;padding:4px 11px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;white-space:nowrap;">
+              Uninstall
+            </button>
+          </div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/scanner-agent</div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-weight:600;">7</div>
           <div style="font-size:12px;color:var(--text-muted);">4 days ago</div>
+          <div>
+            <button onclick="confirmUninstall(this, 7)"
+              style="font-size:11px;padding:4px 11px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;white-space:nowrap;">
+              Uninstall
+            </button>
+          </div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/analyzers</div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-weight:600;">12</div>
           <div style="font-size:12px;color:var(--text-muted);">5 days ago</div>
+          <div>
+            <button onclick="confirmUninstall(this, 12)"
+              style="font-size:11px;padding:4px 11px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;white-space:nowrap;">
+              Uninstall
+            </button>
+          </div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/dashboard-ui</div>
           <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
           <div style="font-weight:600;">5</div>
           <div style="font-size:12px;color:var(--text-muted);">1 week ago</div>
+          <div>
+            <button onclick="confirmUninstall(this, 5)"
+              style="font-size:11px;padding:4px 11px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;white-space:nowrap;">
+              Uninstall
+            </button>
+          </div>
         </div>
-        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
+        <div class="tbl-row" style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border-light);">
           <div class="repo-name">DryRunSec/tf-infra</div>
           <div style="font-size:12px;color:var(--text-sec);">HCL</div>
           <div style="font-weight:600;">4</div>
           <div style="font-size:12px;color:var(--text-muted);">2 weeks ago</div>
+          <div>
+            <button onclick="confirmUninstall(this, 4)"
+              style="font-size:11px;padding:4px 11px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;white-space:nowrap;">
+              Uninstall
+            </button>
+          </div>
         </div>
-
-        <!-- Totals row -->
-        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px;align-items:center;padding:10px 16px;background:var(--orange-bg);border-top:2px solid var(--orange-border);font-weight:700;">
+        <div style="display:grid;grid-template-columns:1fr 110px 160px 130px 160px;align-items:center;padding:10px 16px;background:var(--orange-bg);border-top:2px solid var(--orange-border);font-weight:700;">
           <div style="color:var(--orange);">Total unique committers</div>
           <div></div>
           <div style="color:var(--orange);font-size:15px;">86 <span style="font-size:12px;font-weight:500;">of 100 &nbsp;&middot;&nbsp; 14 seats remaining</span></div>
+          <div></div>
           <div></div>
         </div>
       </div>
@@ -265,17 +312,26 @@
 </div><!-- /shell -->
 
 <script>
-function uninstallRepo(btn) {
-  const row = btn.closest('[style*="grid-template-columns"]');
-  btn.textContent = 'Uninstalling...';
-  btn.disabled = true;
-  btn.style.opacity = '0.5';
-  setTimeout(() => {
-    row.style.transition = 'opacity 0.3s';
-    row.style.opacity = '0.2';
-    row.style.pointerEvents = 'none';
-    setTimeout(() => row.style.display = 'none', 300);
-  }, 600);
+function confirmUninstall(btn, committers) {
+  const row = btn.closest('.tbl-row');
+  const repoName = row.querySelector('.repo-name').textContent;
+  // Replace button with inline confirmation
+  btn.parentElement.innerHTML =
+    `<span style="font-size:11px;color:var(--text-muted);margin-right:6px;">Remove ${committers} committer${committers==1?'':'s'}?</span>` +
+    `<button onclick="doUninstall(this)" style="font-size:11px;padding:3px 8px;border:none;border-radius:5px;background:var(--red);color:#fff;cursor:pointer;font-family:var(--font);font-weight:600;margin-right:4px;">Confirm</button>` +
+    `<button onclick="cancelUninstall(this)" style="font-size:11px;padding:3px 8px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--text-sec);cursor:pointer;font-family:var(--font);">Cancel</button>`;
+}
+function doUninstall(btn) {
+  const row = btn.closest('.tbl-row');
+  row.style.transition = 'opacity 0.3s';
+  row.style.opacity = '0.15';
+  row.style.pointerEvents = 'none';
+  setTimeout(() => row.style.display = 'none', 350);
+}
+function cancelUninstall(btn) {
+  const cell = btn.closest('div');
+  const committers = cell.querySelector('span').textContent.match(/\d+/)[0];
+  cell.innerHTML = `<button onclick="confirmUninstall(this, ${committers})" style="font-size:11px;padding:4px 11px;border:1px solid var(--red-border);border-radius:6px;background:var(--red-bg);color:var(--red);cursor:pointer;font-family:var(--font);font-weight:500;white-space:nowrap;">Uninstall</button>`;
 }
 </script>
 <script src="gate.js"></script>
