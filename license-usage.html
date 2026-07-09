@@ -84,8 +84,8 @@
     /* TABLE */
     .tbl-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
     .tbl-header { display: grid; align-items: center; padding: 8px 16px; background: var(--surface-alt); border-bottom: 1px solid var(--border-light); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
-    .tbl-committers-grid { grid-template-columns: 1fr 100px 110px 80px 100px 130px; }
-    .tbl-deepscan-grid   { grid-template-columns: 1fr 100px 120px 100px 130px; }
+    .tbl-committers-grid { grid-template-columns: 1fr 100px 130px 120px; }
+    .tbl-deepscan-grid   { grid-template-columns: 1fr 100px 150px 120px; }
     .tbl-row { display: grid; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border-light); font-size: 13px; }
     .tbl-row:last-child { border-bottom: none; }
     .tbl-row:hover { background: var(--surface-alt); }
@@ -224,16 +224,14 @@
         <div class="tbl-header tbl-committers-grid">
           <div>Repository</div>
           <div>Language</div>
-          <div>Committers</div>
-          <div style="text-align:center;">Count</div>
+          <div>Unique Committers</div>
           <div>Last PR Scan</div>
-          <div>Status</div>
         </div>
 
         <div class="tbl-row tbl-committers-grid">
           <div><div class="repo-name">DryRunSec/dryrun-api</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
-          <div style="padding-right:12px;"><div class="committer-bar"><div class="committer-bar-fill" style="width:100%;"></div></div></div>
+          </div></div>
           <div style="text-align:center;font-weight:600;">38</div>
           <div style="font-size:12px;color:var(--text-muted);">Today 11:03</div>
           <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Active</span></div>
@@ -242,7 +240,7 @@
         <div class="tbl-row tbl-committers-grid">
           <div><div class="repo-name">DryRunSec/reposture</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Ruby</div>
-          <div style="padding-right:12px;"><div class="committer-bar"><div class="committer-bar-fill" style="width:58%;"></div></div></div>
+          </div></div>
           <div style="text-align:center;font-weight:600;">22</div>
           <div style="font-size:12px;color:var(--text-muted);">Yesterday</div>
           <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Active</span></div>
@@ -251,7 +249,7 @@
         <div class="tbl-row tbl-committers-grid">
           <div><div class="repo-name">DryRunSec/policy-engine</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
-          <div style="padding-right:12px;"><div class="committer-bar"><div class="committer-bar-fill" style="width:24%;"></div></div></div>
+          </div></div>
           <div style="text-align:center;font-weight:600;">9</div>
           <div style="font-size:12px;color:var(--text-muted);">2 days ago</div>
           <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Active</span></div>
@@ -260,7 +258,7 @@
         <div class="tbl-row tbl-committers-grid">
           <div><div class="repo-name">DryRunSec/admin-panel</div></div>
           <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
-          <div style="padding-right:12px;"><div class="committer-bar"><div class="committer-bar-fill" style="width:21%;"></div></div></div>
+          </div></div>
           <div style="text-align:center;font-weight:600;">8</div>
           <div style="font-size:12px;color:var(--text-muted);">3 days ago</div>
           <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Active</span></div>
@@ -269,7 +267,7 @@
         <div class="tbl-row tbl-committers-grid">
           <div><div class="repo-name">DryRunSec/scanner-agent</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
-          <div style="padding-right:12px;"><div class="committer-bar"><div class="committer-bar-fill" style="width:18%;"></div></div></div>
+          </div></div>
           <div style="text-align:center;font-weight:600;">7</div>
           <div style="font-size:12px;color:var(--text-muted);">4 days ago</div>
           <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Active</span></div>
@@ -278,7 +276,7 @@
         <div class="tbl-row tbl-committers-grid">
           <div><div class="repo-name">DryRunSec/analyzers</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
-          <div style="padding-right:12px;"><div class="committer-bar"><div class="committer-bar-fill" style="width:32%;"></div></div></div>
+          </div></div>
           <div style="text-align:center;font-weight:600;">12</div>
           <div style="font-size:12px;color:var(--text-muted);">5 days ago</div>
           <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Active</span></div>
@@ -287,7 +285,7 @@
         <div class="tbl-row tbl-committers-grid">
           <div><div class="repo-name">DryRunSec/dashboard-ui</div></div>
           <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
-          <div style="padding-right:12px;"><div class="committer-bar"><div class="committer-bar-fill" style="width:13%;"></div></div></div>
+          </div></div>
           <div style="text-align:center;font-weight:600;">5</div>
           <div style="font-size:12px;color:var(--text-muted);">1 week ago</div>
           <div><span class="tag tag-warn">Near limit</span></div>
@@ -296,7 +294,7 @@
         <div class="tbl-row tbl-committers-grid">
           <div><div class="repo-name">DryRunSec/tf-infra</div></div>
           <div style="font-size:12px;color:var(--text-sec);">HCL</div>
-          <div style="padding-right:12px;"><div class="committer-bar"><div class="committer-bar-fill" style="width:10%;"></div></div></div>
+          </div></div>
           <div style="text-align:center;font-weight:600;">4</div>
           <div style="font-size:12px;color:var(--text-muted);">2 weeks ago</div>
           <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Active</span></div>
@@ -306,10 +304,8 @@
         <div class="tbl-row tbl-committers-grid tbl-row--total" style="background:var(--orange-bg);border-top:2px solid var(--orange-border);">
           <div style="color:var(--orange);">Total unique committers</div>
           <div></div>
-          <div style="padding-right:12px;"><div class="lc-bar-track"><div class="lc-bar-fill lc-bar-fill--warn" style="width:86%;"></div></div></div>
-          <div style="text-align:center;font-weight:800;color:var(--orange);font-size:15px;">86</div>
-          <div style="font-size:11px;color:var(--orange);">of 100 purchased</div>
-          <div style="font-size:11px;font-weight:600;color:var(--orange);">14 seats remaining</div>
+          <div style="font-weight:800;color:var(--orange);font-size:15px;">86 <span style="font-size:12px;font-weight:500;">of 100 purchased &nbsp;&middot;&nbsp; 14 seats remaining</span></div>
+          <div style="font-size:11px;color:var(--orange);"></div>
         </div>
       </div>
     </div>
@@ -325,72 +321,71 @@
           <div>Repository</div>
           <div>Language</div>
           <div>Last DeepScan</div>
-          <div>Findings</div>
-          <div>Status</div>
+          <div>Times Scanned</div>
         </div>
 
         <div class="tbl-row tbl-deepscan-grid">
           <div><div class="repo-name">DryRunSec/dryrun-api</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-size:12px;color:var(--text-muted);">Today 02:00</div>
-          <div style="font-size:13px;font-weight:600;color:var(--red);">3 open</div>
-          <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Enabled</span></div>
+        
+          <div style="font-size:13px;font-weight:600;">12</div>
         </div>
 
         <div class="tbl-row tbl-deepscan-grid">
           <div><div class="repo-name">DryRunSec/reposture</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Ruby</div>
           <div style="font-size:12px;color:var(--text-muted);">Today 02:12</div>
-          <div style="font-size:13px;font-weight:600;color:var(--green);">Clean</div>
-          <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Enabled</span></div>
+        
+          <div style="font-size:13px;font-weight:600;">12</div>
         </div>
 
         <div class="tbl-row tbl-deepscan-grid">
           <div><div class="repo-name">DryRunSec/analyzers</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-size:12px;color:var(--text-muted);">Yesterday 02:00</div>
-          <div style="font-size:13px;font-weight:600;color:var(--orange);">1 open</div>
-          <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Enabled</span></div>
+        
+          <div style="font-size:13px;font-weight:600;">12</div>
         </div>
 
         <div class="tbl-row tbl-deepscan-grid">
           <div><div class="repo-name">DryRunSec/tf-infra</div></div>
           <div style="font-size:12px;color:var(--text-sec);">HCL</div>
           <div style="font-size:12px;color:var(--text-muted);">3 days ago</div>
-          <div style="font-size:13px;font-weight:600;color:var(--green);">Clean</div>
-          <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Enabled</span></div>
+        
+          <div style="font-size:13px;font-weight:600;">12</div>
         </div>
 
         <div class="tbl-row tbl-deepscan-grid">
           <div><div class="repo-name">DryRunSec/scanner-agent</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-size:12px;color:var(--text-muted);">5 days ago</div>
-          <div style="font-size:13px;font-weight:600;color:var(--green);">Clean</div>
-          <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Enabled</span></div>
+        
+          <div style="font-size:13px;font-weight:600;">12</div>
         </div>
 
         <div class="tbl-row tbl-deepscan-grid">
           <div><div class="repo-name">DryRunSec/policy-engine</div></div>
           <div style="font-size:12px;color:var(--text-sec);">Go</div>
           <div style="font-size:12px;color:var(--text-muted);">1 week ago</div>
-          <div style="font-size:13px;font-weight:600;color:var(--green);">Clean</div>
-          <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Enabled</span></div>
+        
+          <div style="font-size:13px;font-weight:600;">12</div>
         </div>
 
         <div class="tbl-row tbl-deepscan-grid">
           <div><div class="repo-name">DryRunSec/admin-panel</div></div>
           <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
           <div style="font-size:12px;color:var(--text-muted);">1 week ago</div>
-          <div style="font-size:13px;font-weight:600;color:var(--orange);">2 open</div>
-          <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Enabled</span></div>
+        
+          <div style="font-size:13px;font-weight:600;">12</div>
         </div>
 
         <div class="tbl-row tbl-deepscan-grid">
           <div><div class="repo-name">DryRunSec/dashboard-ui</div></div>
           <div style="font-size:12px;color:var(--text-sec);">TypeScript</div>
           <div style="font-size:12px;color:var(--text-muted);">2 weeks ago</div>
-          <div style="font-size:13px;font-weight:600;color:var(--green);">Clean</div>
-          <div><span class="tag tag-on"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Enabled</span></div>
+        
+          <div style="font-size:13px;font-weight:600;">12</div>
         </div>
 
         <!-- Available slots -->
@@ -398,8 +393,7 @@
           <div style="font-size:12px;color:var(--text-muted);font-style:italic;">12 additional repos available</div>
           <div></div>
           <div></div>
-          <div></div>
-          <div><span class="tag tag-off">Available</span></div>
+          <div style="font-size:12px;color:var(--text-muted);">—</div>
         </div>
 
       </div>
