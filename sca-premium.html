@@ -247,6 +247,17 @@
     .anno { background: var(--purple-light); border: 1px solid var(--purple-mid); border-radius: 8px; padding: 9px 12px; margin-bottom: 16px; font-size: 12px; color: var(--purple); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
     .ci-new { display: inline-flex; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: var(--purple-light); color: var(--purple); border: 1px solid var(--purple-mid); }
 
+
+    /* Flat mode */
+    .left-panel.flat-mode .group { border: none; margin-bottom: 0; }
+    .left-panel.flat-mode .group-header { display: none; }
+    .left-panel.flat-mode .group > div[id] { display: block !important; }
+    .left-panel.flat-mode .group:first-of-type .tbl-head { border-radius: 10px 10px 0 0; }
+    .left-panel.flat-mode .group { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+    .left-panel.flat-mode .group:first-of-type { border-top: 1px solid var(--border); border-radius: 10px 10px 0 0; overflow: hidden; }
+    .left-panel.flat-mode .group:last-of-type { border-bottom: 1px solid var(--border); border-radius: 0 0 10px 10px; overflow: hidden; margin-bottom: 16px; }
+    .left-panel.flat-mode .group .tbl-head:not(:first-of-type) { display: none; }
+
     /* grayed premium teaser */
     .premium-teaser { opacity: 0.4; pointer-events: none; filter: blur(1.5px); user-select: none; }
     .premium-lock { display: flex; align-items: center; gap: 8px; padding: 9px 12px; background: var(--bg); border: 1px dashed var(--border); border-radius: 8px; font-size: 12px; color: var(--text-muted); margin: 10px 0; }
@@ -345,10 +356,6 @@
       <!-- LEFT PANEL -->
       <div class="left-panel">
 
-        <div class="anno">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="var(--purple)"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 3a1 1 0 110 2 1 1 0 010-2zm2 9H6v-1h1V7H6V6h3v6h1v1z"/></svg>
-          <div><strong>Proposed SCA Premium redesign.</strong> Findings are grouped by actionability, enriched with dependency paths and severity history. Grayed-out premium data shows what standard-tier users would see as an upgrade prompt. <span class="ci-new">New</span></div>
-        </div>
 
         <!-- Severity tiles -->
         <div class="severity-tiles">
@@ -557,6 +564,86 @@
           </div>
         </div>
 
+
+        <!-- ════ GROUP 4: RESOLVED ════ -->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup('g4')">
+            <div class="group-icon" style="background:#dbeafe;">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="#1d4ed8"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+            </div>
+            <div class="group-label">
+              Resolved
+              <span class="group-label-sub">Vulnerable package updated on subsequent scan</span>
+            </div>
+            <span class="group-count" style="background:#dbeafe;color:#1d4ed8;">5</span>
+            <span class="group-toggle" id="g4-toggle">▼</span>
+          </div>
+          <div id="g4-body" style="display:none;">
+            <div class="tbl-head">
+              <div>RISK</div>
+              <div>PACKAGE</div>
+              <div>CVE</div>
+              <div>TITLE</div>
+              <div style="text-align:center;">CVSS</div>
+              <div>REPOSITORY</div>
+              <div>RESOLVED</div>
+              <div>STATUS</div>
+            </div>
+            <div class="findings-table">
+              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
+                <div><span class="risk-badge rb-critical">Critical</span></div>
+                <div class="pkg-name">requests <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div>
+                <div class="cve-id">CVE-2024-35195</div>
+                <div class="row-title">Requests forwards proxy-authorization to destination...</div>
+                <div class="cvss-val">9.1</div>
+                <div class="repo-name">DryRunSecurityDemos/mms</div>
+                <div class="detected-date" style="color:var(--green);">08/12/26 → 2.32.3</div>
+                <div><span class="status-pill sp-resolved">Resolved</span></div>
+              </div>
+              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
+                <div><span class="risk-badge rb-high">High</span></div>
+                <div class="pkg-name">express <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div>
+                <div class="cve-id">CVE-2024-29041</div>
+                <div class="row-title">Express.js open redirect vulnerability...</div>
+                <div class="cvss-val">8.6</div>
+                <div class="repo-name">DryRunSecurityDemos/mms</div>
+                <div class="detected-date" style="color:var(--green);">07/30/26 → 4.19.2</div>
+                <div><span class="status-pill sp-resolved">Resolved</span></div>
+              </div>
+              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
+                <div><span class="risk-badge rb-high">High</span></div>
+                <div class="pkg-name">axios <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div>
+                <div class="cve-id">CVE-2024-39338</div>
+                <div class="row-title">Axios allows server-side request forgery...</div>
+                <div class="cvss-val">7.5</div>
+                <div class="repo-name">DryRunSecurityDemos/vera...</div>
+                <div class="detected-date" style="color:var(--green);">07/15/26 → 1.7.4</div>
+                <div><span class="status-pill sp-resolved">Resolved</span></div>
+              </div>
+              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
+                <div><span class="risk-badge rb-medium">Medium</span></div>
+                <div class="pkg-name">setuptools <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div>
+                <div class="cve-id">CVE-2024-6345</div>
+                <div class="row-title">Remote code execution via malicious URL...</div>
+                <div class="cvss-val">6.8</div>
+                <div class="repo-name">DryRunSecurityDemos/mms</div>
+                <div class="detected-date" style="color:var(--green);">06/28/26 → 70.0.0</div>
+                <div><span class="status-pill sp-resolved">Resolved</span></div>
+              </div>
+              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
+                <div><span class="risk-badge rb-medium">Medium</span></div>
+                <div class="pkg-name">werkzeug <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div>
+                <div class="cve-id">CVE-2024-34069</div>
+                <div class="row-title">Werkzeug debugger vulnerable to RCE...</div>
+                <div class="cvss-val">6.3</div>
+                <div class="repo-name">DryRunSecurityDemos/mms</div>
+                <div class="detected-date" style="color:var(--green);">06/10/26 → 3.0.3</div>
+                <div><span class="status-pill sp-resolved">Resolved</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /left-panel -->
 
       <!-- DETAIL PANEL -->
@@ -725,6 +812,17 @@
 </div>
 
 <script>
+function setView(mode, btn) {
+  document.querySelectorAll('.vt-btn').forEach(b => b.classList.remove('vt-btn--active'));
+  btn.classList.add('vt-btn--active');
+  const panel = document.querySelector('.left-panel');
+  if (mode === 'flat') {
+    panel.classList.add('flat-mode');
+  } else {
+    panel.classList.remove('flat-mode');
+  }
+}
+
 function openDetail() {
   document.getElementById('detail-panel').style.display = 'flex';
   document.querySelectorAll('.finding-row').forEach(r => r.classList.remove('finding-row--selected'));
