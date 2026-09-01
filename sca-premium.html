@@ -720,6 +720,13 @@
 
                 <hr class="dp-divider">
 
+                <div style="font-size:12px;font-weight:600;color:var(--text-sec);margin-bottom:6px;">Verification Rationale</div>
+                <div style="font-size:12.5px;color:var(--text-sec);line-height:1.65;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px 12px;margin-bottom:14px;">
+                  cryptography 46.0.6 is a direct dependency of the <code style="font-family:var(--mono);font-size:11px;background:rgba(0,0,0,0.05);padding:1px 4px;border-radius:3px;">mms</code> service via <code style="font-family:var(--mono);font-size:11px;background:rgba(0,0,0,0.05);padding:1px 4px;border-radius:3px;">bazel_python</code>. The vulnerable buffer-overflow function is called directly in the encryption endpoint with user-supplied ciphertext input, making this actively exploitable. A patched version (46.0.7) has been available for 4 days. This finding is classified as high-priority and actionable.
+                </div>
+
+                <hr class="dp-divider">
+
                 <div class="upgrade-rec">
                   <div class="upgrade-rec-label">Recommended fix</div>
                   <div class="upgrade-rec-cmd">pip install cryptography==46.0.7</div>
