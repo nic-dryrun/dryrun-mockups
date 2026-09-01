@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DryRun — SCA Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font: 'Inter', -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --bg: #f7f8fc;
+      --surface: #ffffff;
+      --border: #e8e9f0;
+      --border-light: #f0f1f6;
+      --text: #1a1b23;
+      --text-sec: #5a5d6e;
+      --text-muted: #9499ae;
+      --purple: #5b50d6;
+      --purple-light: #ede9ff;
+      --purple-mid: #c4bcf7;
+      --green: #1c7c4c;
+      --green-bg: #e6f7ee;
+      --green-border: #a8dfc0;
+      --orange: #b45309;
+      --orange-bg: #fff7ed;
+      --orange-border: #fed7aa;
+      --red: #b91c1c;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --yellow: #92400e;
+      --yellow-bg: #fffbeb;
+      --yellow-border: #fde68a;
+      --gray-bg: #f3f4f6;
+      --gray-border: #d1d5db;
+      --premium-gold: #92400e;
+      --premium-gold-bg: #fffbeb;
+      --premium-gold-border: #fcd34d;
+      --premium-purple: #5b50d6;
+      --premium-purple-bg: #ede9ff;
+    }
+    body { font-family: var(--font); font-size: 14px; color: var(--text); background: var(--bg); overflow: hidden; height: 100vh; }
+
+    /* ── MOCKUP BAR ── */
+    .mockup-bar { background: linear-gradient(135deg, #1a1e3a, #2d3260); padding: 8px 20px; display: flex; align-items: center; gap: 12px; font-size: 12px; color: #fff; }
+    .mockup-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(124,110,240,0.3); padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+    .mockup-breadcrumb { padding: 6px 20px; font-size: 12px; color: #8b919e; background: #fff; border-bottom: 1px solid #e8ecf0; }
+    .mockup-breadcrumb a { color: var(--purple); text-decoration: none; }
+
+    /* ── SHELL ── */
+    .shell { display: flex; height: calc(100vh - 52px); }
+
+    /* ── SIDEBAR (matches DryRun product exactly) ── */
+    .sidebar { width: 220px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
+    .sb-logo { display: flex; align-items: center; gap: 10px; padding: 16px 16px 14px; border-bottom: 1px solid var(--border); }
+    .sb-logo-mark { width: 32px; height: 32px; }
+    .sb-logo-text { font-size: 13px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+    .sb-logo-text span { display: block; font-size: 10px; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
+    .sb-org { margin: 10px 12px 6px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; cursor: pointer; }
+    .sb-org-icon { width: 22px; height: 22px; border-radius: 5px; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; flex-shrink: 0; }
+    .sb-org-name { flex: 1; font-size: 12px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sb-section { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); padding: 10px 16px 3px; }
+    .sb-item { display: flex; align-items: center; gap: 9px; padding: 7px 16px; font-size: 13px; font-weight: 500; color: var(--text-sec); cursor: pointer; text-decoration: none; border-radius: 0; }
+    .sb-item:hover { background: var(--bg); color: var(--text); }
+    .sb-item--active { color: var(--purple); background: var(--purple-light); font-weight: 600; }
+    .sb-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7; }
+    .sb-item--active svg { opacity: 1; }
+    .sb-spacer { flex: 1; }
+    .sb-user { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); }
+    .sb-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--purple-light); color: var(--purple); font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* ── MAIN AREA ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* ── PAGE HEADER ── */
+    .page-header { padding: 0 24px; border-bottom: 1px solid var(--border); background: var(--surface); flex-shrink: 0; }
+    .page-header-top { display: flex; align-items: center; gap: 6px; padding: 10px 0 2px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+    .page-title-row { display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; }
+    .page-title { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; display: flex; align-items: center; gap: 12px; }
+
+    /* ── PREMIUM BADGE ── */
+    .premium-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: linear-gradient(135deg, #fef3c7, #fde68a); color: var(--premium-gold); border: 1px solid var(--premium-gold-border); letter-spacing: 0.03em; text-transform: uppercase; }
+
+    /* ── PREMIUM BANNER ── */
+    .premium-banner { display: flex; align-items: center; gap: 12px; padding: 10px 24px; background: linear-gradient(135deg, #ede9ff 0%, #fef9c3 100%); border-bottom: 1px solid #d8d0f7; font-size: 12.5px; color: var(--purple); font-weight: 500; flex-shrink: 0; }
+    .premium-banner strong { font-weight: 700; }
+    .premium-banner-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--purple); flex-shrink: 0; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .premium-banner-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+    .premium-banner-link { font-size: 11.5px; color: var(--purple); font-weight: 600; cursor: pointer; text-decoration: underline; }
+
+    /* ── CONTENT AREA ── */
+    .content-area { flex: 1; display: flex; overflow: hidden; }
+
+    /* ── LEFT PANEL ── */
+    .left-panel { flex: 1; overflow-y: auto; padding: 20px 24px; min-width: 0; }
+
+    /* ── SEVERITY TILES ── */
+    .severity-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+    .sev-tile { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .sev-tile-label { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-sec); margin-bottom: 6px; }
+    .sev-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-critical { background: #ef4444; }
+    .dot-high { background: #f97316; }
+    .dot-medium { background: #eab308; }
+    .dot-low { background: #9ca3af; }
+    .sev-tile-value { font-size: 28px; font-weight: 700; line-height: 1; }
+
+    /* ── FINDINGS SECTION ── */
+    .findings-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .findings-title { font-size: 16px; font-weight: 700; }
+    .findings-total { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+    .findings-toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .search-wrap { position: relative; flex: 1; }
+    .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+    .search-input { width: 100%; padding: 8px 12px 8px 32px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: var(--font); background: var(--surface); outline: none; color: var(--text); }
+    .search-input:focus { border-color: var(--purple); }
+    .filter-btn { display: flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--font); color: var(--text-sec); white-space: nowrap; }
+    .filter-count { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--purple); color: white; font-size: 10px; font-weight: 700; }
+    .view-toggle { display: flex; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 2px; }
+    .vt-btn { padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: transparent; font-family: var(--font); color: var(--text-muted); }
+    .vt-btn--active { background: var(--surface); color: var(--purple); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+    /* ── GROUPED FINDINGS ── */
+    .group { margin-bottom: 16px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .group-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--surface); border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
+    .group-header:hover { background: var(--bg); }
+    .group-icon { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 11px; }
+    .gi-green { background: var(--green-bg); }
+    .gi-orange { background: var(--orange-bg); }
+    .gi-gray { background: var(--gray-bg); }
+    .group-label { font-size: 13px; font-weight: 700; flex: 1; display: flex; align-items: center; gap: 8px; }
+    .group-label-sub { font-size: 11.5px; font-weight: 400; color: var(--text-muted); }
+    .group-count { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+    .gc-green { background: var(--green-bg); color: var(--green); }
+    .gc-orange { background: var(--orange-bg); color: var(--orange); }
+    .gc-gray { background: var(--gray-bg); color: var(--text-muted); }
+    .group-curated { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px; background: linear-gradient(135deg,#ede9ff,#fef9c3); color: var(--purple); border: 1px solid var(--purple-mid); text-transform: uppercase; letter-spacing: 0.04em; }
+    .group-toggle { font-size: 11px; color: var(--text-muted); }
+
+    /* ── TABLE ── */
+    .findings-table { width: 100%; }
+    .tbl-head { display: grid; grid-template-columns: 80px 170px 130px minmax(0,1fr) 52px 150px 130px 80px; padding: 7px 14px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); background: var(--bg); border-bottom: 1px solid var(--border); }
+    .tbl-head-btn { display: flex; align-items: center; gap: 3px; cursor: pointer; }
+    .sort-icon { color: var(--text-muted); }
+    .finding-row { display: grid; grid-template-columns: 80px 170px 130px minmax(0,1fr) 52px 150px 130px 80px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border-light); cursor: pointer; transition: background 0.1s; font-size: 13px; }
+    .finding-row:last-child { border-bottom: none; }
+    .finding-row:hover { background: #f9f9fc; }
+    .finding-row--selected { background: #f0edff !important; }
+    .risk-badge { display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 6px; border: 1px solid; }
+    .rb-critical { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
+    .rb-high { background: var(--orange-bg); color: var(--orange); border-color: var(--orange-border); }
+    .rb-medium { background: var(--yellow-bg); color: var(--yellow); border-color: var(--yellow-border); }
+    .rb-low { background: var(--gray-bg); color: var(--text-muted); border-color: var(--gray-border); }
+    .pkg-name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .eco-tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 4px; background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); margin-left: 4px; font-family: var(--mono); }
+    .dep-type { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 4px; margin-left: 2px; }
+    .dt-direct { background: #dbeafe; color: #1e40af; }
+    .dt-transitive { background: var(--yellow-bg); color: var(--yellow); }
+    .cve-id { font-family: var(--mono); font-size: 12px; color: var(--text-sec); }
+    .row-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-sec); font-size: 12.5px; }
+    .cvss-val { font-size: 13px; font-weight: 700; text-align: center; }
+    .repo-name { font-size: 12px; color: var(--text-sec); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .detected-date { font-size: 11.5px; color: var(--text-muted); }
+    .status-pill { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+    .sp-active { background: var(--red-bg); color: var(--red); }
+    .sp-resolved { background: var(--green-bg); color: var(--green); }
+    .fix-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 10.5px; font-weight: 600; padding: 1px 7px; border-radius: 8px; }
+    .fp-available { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+    .fp-pending { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+    .fp-na { background: var(--gray-bg); color: var(--text-muted); border: 1px solid var(--gray-border); }
+
+    /* ── DETAIL PANEL ── */
+    .detail-panel { width: 440px; flex-shrink: 0; border-left: 1px solid var(--border); background: var(--surface); display: flex; flex-direction: column; overflow: hidden; }
+    .dp-header { padding: 14px 18px 10px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; flex-shrink: 0; }
+    .dp-title { font-size: 16px; font-weight: 700; flex: 1; letter-spacing: -0.01em; }
+    .dp-close { width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--border); background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); flex-shrink: 0; }
+    .dp-tabs { display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0; padding: 0 18px; }
+    .dp-tab { font-size: 12.5px; font-weight: 500; padding: 9px 10px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-muted); margin-bottom: -1px; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+    .dp-tab:hover { color: var(--text); }
+    .dp-tab--active { color: var(--purple); border-bottom-color: var(--purple); font-weight: 600; }
+    .dp-tab-count { display: inline-flex; align-items: center; justify-content: center; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--purple); color: white; font-size: 9px; font-weight: 700; }
+    .dp-body { flex: 1; overflow-y: auto; padding: 16px 18px; }
+    .dp-panel { display: none; }
+    .dp-panel--active { display: block; }
+
+    /* Detail rows */
+    .dp-field { display: flex; gap: 12px; padding: 5px 0; font-size: 13px; }
+    .dp-label { color: var(--text-muted); font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; min-width: 100px; padding-top: 1px; flex-shrink: 0; }
+    .dp-value { color: var(--text); font-size: 13px; line-height: 1.4; flex: 1; min-width: 0; word-break: break-word; }
+    .dp-value a { color: var(--purple); }
+    .dp-section-title { font-size: 13px; font-weight: 700; margin: 16px 0 8px; }
+    .dp-divider { border: none; border-top: 1px solid var(--border-light); margin: 12px 0; }
+
+    /* ── PREMIUM DATA SECTION ── */
+    .premium-section { border: 1.5px solid var(--purple-mid); border-radius: 10px; overflow: hidden; margin: 14px 0; }
+    .premium-section-header { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(135deg,#ede9ff,#fef9c3); font-size: 11px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--purple-mid); }
+    .premium-section-body { padding: 12px; background: var(--surface); }
+
+    /* Dependency path */
+    .dep-path { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font-size: 12px; font-family: var(--mono); background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; line-height: 1.6; }
+    .dep-path-node { color: var(--text); }
+    .dep-path-node--root { font-weight: 700; color: var(--purple); }
+    .dep-path-node--vuln { font-weight: 700; color: var(--red); background: var(--red-bg); padding: 1px 5px; border-radius: 4px; }
+    .dep-path-arrow { color: var(--text-muted); font-size: 14px; }
+
+    /* Severity history */
+    .sev-history { display: flex; flex-direction: column; gap: 6px; }
+    .sev-event { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    .sev-event-date { color: var(--text-muted); min-width: 72px; font-size: 11px; }
+    .sev-event-change { display: flex; align-items: center; gap: 5px; }
+    .sev-arrow { font-size: 14px; color: var(--text-muted); }
+    .sev-up { color: var(--red); font-weight: 700; }
+    .sev-down { color: var(--green); font-weight: 700; }
+
+    /* Upgrade rec */
+    .upgrade-rec { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 7px; padding: 10px 12px; }
+    .upgrade-rec-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--green); margin-bottom: 5px; }
+    .upgrade-rec-cmd { font-family: var(--mono); font-size: 12px; color: var(--text); background: white; border: 1px solid var(--green-border); border-radius: 5px; padding: 5px 10px; word-break: break-all; }
+
+    /* Repo card */
+    .repo-card { border: 1px solid var(--purple-light); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; background: var(--purple-light); cursor: pointer; }
+    .repo-card:last-child { margin-bottom: 0; }
+    .repo-card-name { font-weight: 600; color: var(--purple); font-size: 13px; margin-bottom: 6px; }
+    .repo-card-meta { display: flex; flex-direction: column; gap: 2px; font-size: 12px; color: var(--text-sec); }
+    .repo-card-status { float: right; }
+
+    /* Filter panel */
+    .filter-panel { position: absolute; right: 460px; top: 160px; width: 280px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); z-index: 100; display: none; padding: 0; overflow: hidden; }
+    .filter-panel.open { display: block; }
+    .fp-title { font-size: 16px; font-weight: 700; padding: 16px 18px 12px; border-bottom: 1px solid var(--border); }
+    .fp-section { padding: 12px 18px; border-bottom: 1px solid var(--border); }
+    .fp-section-header { display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); cursor: pointer; margin-bottom: 8px; }
+    .fp-options { display: flex; flex-wrap: wrap; gap: 6px; }
+    .fp-cb { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
+    .fp-cb input { width: 15px; height: 15px; accent-color: var(--purple); }
+    .fp-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; }
+    .fp-clear { font-size: 13px; color: var(--text-muted); cursor: pointer; background: none; border: none; font-family: var(--font); }
+    .fp-apply { font-size: 13px; font-weight: 600; padding: 8px 20px; border: none; border-radius: 8px; background: var(--purple); color: white; cursor: pointer; font-family: var(--font); }
+
+    /* SBOM button */
+    .sbom-btn { display: flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); font-size: 12.5px; font-weight: 500; cursor: pointer; color: var(--text-sec); white-space: nowrap; font-family: var(--font); }
+
+    /* Anno */
+    .anno { background: var(--purple-light); border: 1px solid var(--purple-mid); border-radius: 8px; padding: 9px 12px; margin-bottom: 16px; font-size: 12px; color: var(--purple); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+    .ci-new { display: inline-flex; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: var(--purple-light); color: var(--purple); border: 1px solid var(--purple-mid); }
+
+    /* grayed premium teaser */
+    .premium-teaser { opacity: 0.4; pointer-events: none; filter: blur(1.5px); user-select: none; }
+    .premium-lock { display: flex; align-items: center; gap: 8px; padding: 9px 12px; background: var(--bg); border: 1px dashed var(--border); border-radius: 8px; font-size: 12px; color: var(--text-muted); margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+<div class="mockup-bar">
+  <span class="mockup-badge"><svg width="10" height="10" viewBox="0 0 16 16" fill="#c4b5fd"><circle cx="8" cy="8" r="8"/></svg> PROPOSED MOCKUP</span>
+  <span style="opacity:0.6;">SCA Premium — Dependencies Redesign</span>
+</div>
+<div class="mockup-breadcrumb"><a href="index.html">Mockups</a> / <span>SCA / SCA Premium</span></div>
+
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <svg class="sb-logo-mark" viewBox="0 0 40 40" fill="none">
+        <path d="M20 2L4 12v16l16 10 16-10V12L20 2z" fill="#1a1a2e" stroke="#5b50d6" stroke-width="1.5"/>
+        <path d="M20 8L9 15v10l11 6.5L31 25V15L20 8z" fill="#5b50d6" opacity="0.2"/>
+        <path d="M14 20l4 4 8-8" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="sb-logo-text">DRYRUN<span>SECURITY</span></div>
+    </div>
+    <div class="sb-org">
+      <div class="sb-org-icon">D</div>
+      <span class="sb-org-name">DryRunSecurityDe...</span>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="var(--text-muted)"><path d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"/></svg>
+    </div>
+    <div class="sb-section">Main</div>
+    <a class="sb-item" href="#"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 1.75A.75.75 0 012.25 1h11.5a.75.75 0 01.75.75v2.5a.75.75 0 01-.75.75H2.25A.75.75 0 011.5 4.25v-2.5zm0 5A.75.75 0 012.25 6h3.5a.75.75 0 010 1.5h-3.5A.75.75 0 011.5 6.75zm0 5A.75.75 0 012.25 11h5.5a.75.75 0 010 1.5h-5.5a.75.75 0 01-.75-.75z"/></svg>Reporting</a>
+    <a class="sb-item" href="#"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75C0 1.784.784 1 1.75 1z"/></svg>Risk Register</a>
+    <a class="sb-item" href="csi.html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.467.133a1.75 1.75 0 011.066 0l5.25 1.68A1.75 1.75 0 0115 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 01-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 011.217-1.667l5.25-1.68z"/></svg>Insights</a>
+    <a class="sb-item" href="#"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg>Repositories</a>
+    <a class="sb-item" href="#"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25z"/></svg>Pull Requests</a>
+    <a class="sb-item sb-item--active" href="#">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.28.29a1.5 1.5 0 011.44 0l4.75 2.765A1.5 1.5 0 0113.25 4.5v7a1.5 1.5 0 01-.78 1.315l-4.75 2.515a1.5 1.5 0 01-1.44 0L1.53 12.815A1.5 1.5 0 01.75 11.5v-7a1.5 1.5 0 01.78-1.315L6.28.29z"/></svg>
+      Dependencies
+    </a>
+    <a class="sb-item" href="deepscan-history.html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8.2 8.2 0 00-2.3.3c-.3.1-.5.4-.5.7v1.4a1 1 0 01-.6.9l-.5.3a1 1 0 01-1.1-.1L1.9 2.4c-.2-.2-.6-.2-.8 0A8 8 0 00.3 5.7c0 .3.2.6.5.7L2.2 7a1 1 0 01.5 1v.5a1 1 0 01-.5.9l-1.4.8c-.3.1-.5.4-.5.7a8 8 0 00.8 3.3c.2.3.5.3.8.1l1.1-1.1a1 1 0 011.1-.1l.5.3a1 1 0 01.6.9v1.4c0 .3.2.6.5.7a8.2 8.2 0 004.6 0c.3-.1.5-.4.5-.7v-1.4a1 1 0 01.6-.9l.5-.3a1 1 0 011.1.1l1.1 1.1c.2.2.6.2.8 0a8 8 0 00.8-3.3c0-.3-.2-.6-.5-.7L13.8 9a1 1 0 01-.5-1V7.5a1 1 0 01.5-.9l1.4-.8c.3-.1.5-.4.5-.7a8 8 0 00-.8-3.3c-.2-.3-.5-.3-.8-.1l-1.1 1.1a1 1 0 01-1.1.1l-.5-.3a1 1 0 01-.6-.9V.8c0-.3-.2-.6-.5-.7A8.2 8.2 0 008 0zM8 11a3 3 0 110-6 3 3 0 010 6z"/></svg>DeepScan</a>
+    <div class="sb-section">Documents</div>
+    <a class="sb-item" href="#"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8.878.392a1.75 1.75 0 00-1.756 0l-5.25 3.045A1.75 1.75 0 001 4.951v6.098c0 .624.332 1.2.872 1.514l5.25 3.045a1.75 1.75 0 001.756 0l5.25-3.045c.54-.313.872-.89.872-1.514V4.951c0-.624-.332-1.2-.872-1.514L8.878.392z"/></svg>Code Policies</a>
+    <a class="sb-item" href="#"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 1.75A.75.75 0 012.75 1h10.5a.75.75 0 010 1.5H2.75A.75.75 0 012 1.75zM2 5.75A.75.75 0 012.75 5h10.5a.75.75 0 010 1.5H2.75A.75.75 0 012 5.75zM2 9.75A.75.75 0 012.75 9h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 012 9.75z"/></svg>Policy Library</a>
+    <a class="sb-item" href="#"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zm5 0a.75.75 0 000 1.5h6a.75.75 0 000-1.5h-6zm0 5a.75.75 0 000 1.5h6a.75.75 0 000-1.5h-6zM4.5 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>Context</a>
+    <div class="sb-section">Settings</div>
+    <a class="sb-item" href="#"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M10.5 5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm.061 3.073a4 4 0 10-5.123 0 6.004 6.004 0 00-3.431 5.142.75.75 0 001.498.07 4.5 4.5 0 018.99 0 .75.75 0 101.498-.07 6.005 6.005 0 00-3.432-5.142z"/></svg>Account</a>
+    <a class="sb-item" href="configurations.html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8.2 8.2 0 00-2.3.3c-.3.1-.5.4-.5.7v1.4a1 1 0 01-.6.9l-.5.3a1 1 0 01-1.1-.1L1.9 2.4c-.2-.2-.6-.2-.8 0A8 8 0 00.3 5.7c0 .3.2.6.5.7L2.2 7a1 1 0 01.5 1v.5a1 1 0 01-.5.9l-1.4.8c-.3.1-.5.4-.5.7a8 8 0 00.8 3.3c.2.3.5.3.8.1l1.1-1.1a1 1 0 011.1-.1l.5.3a1 1 0 01.6.9v1.4c0 .3.2.6.5.7a8.2 8.2 0 004.6 0c.3-.1.5-.4.5-.7v-1.4a1 1 0 01.6-.9l.5-.3a1 1 0 011.1.1l1.1 1.1c.2.2.6.2.8 0a8 8 0 00.8-3.3c0-.3-.2-.6-.5-.7L13.8 9a1 1 0 01-.5-1V7.5a1 1 0 01.5-.9l1.4-.8c.3-.1.5-.4.5-.7a8 8 0 00-.8-3.3c-.2-.3-.5-.3-.8-.1l-1.1 1.1a1 1 0 01-1.1.1l-.5-.3a1 1 0 01-.6-.9V.8c0-.3-.2-.6-.5-.7A8.2 8.2 0 008 0zM8 11a3 3 0 110-6 3 3 0 010 6z"/></svg>Configuration</a>
+    <a class="sb-item" href="integrations.html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 16a2 2 0 001.985-1.75c.017-.137-.097-.25-.235-.25h-3.5c-.138 0-.252.113-.235.25A2 2 0 008 16zm.25-14.75v-.5a.75.75 0 00-1.5 0v.5A4.56 4.56 0 003.5 7.35c0 1.129-.133 2.099-.348 2.895A2.088 2.088 0 001 12.5c0 .828.48 1.5 1.085 1.5h11.83C14.52 14 15 13.328 15 12.5a2.088 2.088 0 00-2.152-2.255c-.215-.796-.348-1.766-.348-2.895A4.56 4.56 0 008.25 2.25z"/></svg>Webhooks</a>
+    <a class="sb-item" href="integrations.html"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 1.75A.75.75 0 011.75 1H5a.25.25 0 00.25-.25.75.75 0 011.5 0V2h3.5v-.25a.75.75 0 011.5 0A.25.25 0 0011 2h3.25a.75.75 0 010 1.5H13.4l-.585 8.192c-.072 1.015-.87 1.808-1.928 1.808H5.113c-1.059 0-1.856-.793-1.928-1.808L2.6 3.5H1.75A.75.75 0 011 2.75v-1z"/></svg>Integrations</a>
+    <div class="sb-spacer"></div>
+    <div class="sb-user">
+      <div class="sb-avatar">N</div>
+      <span>nic-dryrun</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="page-header-top">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6.28.29a1.5 1.5 0 011.44 0l4.75 2.765A1.5 1.5 0 0113.25 4.5v7a1.5 1.5 0 01-.78 1.315l-4.75 2.515a1.5 1.5 0 01-1.44 0L1.53 12.815A1.5 1.5 0 01.75 11.5v-7a1.5 1.5 0 01.78-1.315L6.28.29z"/></svg>
+        Dependencies
+      </div>
+      <div class="page-title-row">
+        <div class="page-title">
+          Dependencies
+          <span class="premium-badge">
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+            SCA Premium
+          </span>
+        </div>
+        <button class="sbom-btn" onclick="alert('SBOM download initiated')">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M2.75 14A1.75 1.75 0 011 12.25v-2.5a.75.75 0 011.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25v-2.5a.75.75 0 011.5 0v2.5A1.75 1.75 0 0113.25 14H2.75zM7.25 7.689V2a.75.75 0 011.5 0v5.689l1.97-1.97a.749.749 0 111.06 1.06l-3.25 3.25a.749.749 0 01-1.06 0L4.22 6.779a.749.749 0 111.06-1.06l1.97 1.97z"/></svg>
+          Download SBOM
+        </button>
+      </div>
+    </div>
+
+    <!-- PREMIUM BANNER -->
+    <div class="premium-banner">
+      <div class="premium-banner-dot"></div>
+      <strong>SCA Premium active</strong> &mdash; Findings grouped by actionability. Context-aware exploitability scoring enabled. Daily scans running.
+      <div class="premium-banner-actions">
+        <span class="premium-banner-link">View scan schedule</span>
+        <span style="color:var(--purple-mid);">|</span>
+        <span class="premium-banner-link">Manage settings</span>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-area">
+
+      <!-- LEFT PANEL -->
+      <div class="left-panel">
+
+        <div class="anno">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="var(--purple)"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 3a1 1 0 110 2 1 1 0 010-2zm2 9H6v-1h1V7H6V6h3v6h1v1z"/></svg>
+          <div><strong>Proposed SCA Premium redesign.</strong> Findings are grouped by actionability, enriched with dependency paths and severity history. Grayed-out premium data shows what standard-tier users would see as an upgrade prompt. <span class="ci-new">New</span></div>
+        </div>
+
+        <!-- Severity tiles -->
+        <div class="severity-tiles">
+          <div class="sev-tile">
+            <div class="sev-tile-label"><span class="sev-dot dot-critical"></span> Critical</div>
+            <div class="sev-tile-value">46</div>
+          </div>
+          <div class="sev-tile">
+            <div class="sev-tile-label"><span class="sev-dot dot-high"></span> High</div>
+            <div class="sev-tile-value">342</div>
+          </div>
+          <div class="sev-tile">
+            <div class="sev-tile-label"><span class="sev-dot dot-medium"></span> Medium</div>
+            <div class="sev-tile-value">330</div>
+          </div>
+          <div class="sev-tile">
+            <div class="sev-tile-label"><span class="sev-dot dot-low"></span> Low</div>
+            <div class="sev-tile-value">93</div>
+          </div>
+        </div>
+
+        <!-- Findings header + toolbar -->
+        <div class="findings-header">
+          <div class="findings-title">Findings</div>
+          <div class="findings-total">960 TOTAL FINDINGS</div>
+        </div>
+        <div class="findings-toolbar">
+          <div class="search-wrap">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="var(--text-muted)"><path d="M10.68 11.74a6 6 0 01-7.922-8.982 6 6 0 018.982 7.922l3.04 3.04a.749.749 0 01-.326 1.275.749.749 0 01-.734-.215l-3.04-3.04zm-5.44.406a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+            <input class="search-input" type="text" placeholder="Search findings">
+          </div>
+          <div class="view-toggle">
+            <button class="vt-btn vt-btn--active">Grouped</button>
+            <button class="vt-btn" onclick="this.classList.add('vt-btn--active');this.previousElementSibling.classList.remove('vt-btn--active')">Flat</button>
+          </div>
+          <button class="filter-btn" onclick="toggleFilter()">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M.75 3h14.5a.75.75 0 000-1.5H.75a.75.75 0 000 1.5zM3 7.75A.75.75 0 013.75 7h8.5a.75.75 0 010 1.5h-8.5A.75.75 0 013 7.75zm3 4a.75.75 0 01.75-.75h2.5a.75.75 0 010 1.5h-2.5a.75.75 0 01-.75-.75z"/></svg>
+            Filter
+            <span class="filter-count">1</span>
+          </button>
+        </div>
+
+        <!-- ════ GROUP 1: ACTIONABLE NOW ════ -->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup('g1')">
+            <div class="group-icon gi-green">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="var(--green)"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
+            </div>
+            <div class="group-label">
+              Actionable Now
+              <span class="group-label-sub">Fix available · Direct dependencies</span>
+              <span class="group-curated">
+                <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                Curated
+              </span>
+            </div>
+            <span class="group-count gc-green">8</span>
+            <span class="group-toggle" id="g1-toggle">▲</span>
+          </div>
+          <div id="g1-body">
+            <!-- Table header -->
+            <div class="tbl-head">
+              <div class="tbl-head-btn">RISK <span class="sort-icon">↕</span></div>
+              <div class="tbl-head-btn">PACKAGE <span class="sort-icon">↕</span></div>
+              <div class="tbl-head-btn">CVE <span class="sort-icon">↕</span></div>
+              <div class="tbl-head-btn">TITLE</div>
+              <div class="tbl-head-btn" style="text-align:center;">CVSS <span class="sort-icon">↓</span></div>
+              <div>REPOSITORY</div>
+              <div>DETECTED</div>
+              <div>FIX</div>
+            </div>
+            <div class="findings-table">
+              <div class="finding-row finding-row--selected" onclick="openDetail()">
+                <div><span class="risk-badge rb-critical">Critical</span></div>
+                <div class="pkg-name">cryptography <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div>
+                <div class="cve-id">CVE-2026-39892</div>
+                <div class="row-title">Cryptography vulnerable to buffer overflow...</div>
+                <div class="cvss-val" style="color:var(--red);">9.8</div>
+                <div class="repo-name">DryRunSecurityDemos/mms</div>
+                <div class="detected-date">05/29/26 20:18</div>
+                <div><span class="fix-pill fp-available"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>46.0.7</span></div>
+              </div>
+              <div class="finding-row" onclick="openDetail()">
+                <div><span class="risk-badge rb-critical">Critical</span></div>
+                <div class="pkg-name">handlebars <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div>
+                <div class="cve-id">CVE-2026-33937</div>
+                <div class="row-title">Handlebars.js has JavaScript Injection via...</div>
+                <div class="cvss-val" style="color:var(--red);">9.8</div>
+                <div class="repo-name">DryRunSecurityDemos/mms</div>
+                <div class="detected-date">05/29/26 20:18</div>
+                <div><span class="fix-pill fp-available"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>4.7.8</span></div>
+              </div>
+              <div class="finding-row" onclick="openDetail()">
+                <div><span class="risk-badge rb-critical">Critical</span></div>
+                <div class="pkg-name">log4j:log4j <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div>
+                <div class="cve-id">CVE-2022-23307</div>
+                <div class="row-title">Deserialization of Untrusted Data in Log4j...</div>
+                <div class="cvss-val" style="color:var(--red);">9.8</div>
+                <div class="repo-name">DryRunSecurityDemos/vera...</div>
+                <div class="detected-date">08/17/26 16:53</div>
+                <div><span class="fix-pill fp-available"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>2.17.2</span></div>
+              </div>
+              <div class="finding-row" onclick="openDetail()">
+                <div><span class="risk-badge rb-high">High</span></div>
+                <div class="pkg-name">pillow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div>
+                <div class="cve-id">CVE-2026-28228</div>
+                <div class="row-title">Pillow: PIL.ImageMath.eval allows arbitrary...</div>
+                <div class="cvss-val" style="color:var(--orange);">8.8</div>
+                <div class="repo-name">DryRunSecurityDemos/mms</div>
+                <div class="detected-date">06/12/26 09:44</div>
+                <div><span class="fix-pill fp-available"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>10.4.0</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ GROUP 2: FIX PENDING ════ -->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup('g2')">
+            <div class="group-icon gi-orange">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="var(--orange)"><path d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"/></svg>
+            </div>
+            <div class="group-label">
+              Fix Pending
+              <span class="group-label-sub">Exploitable · Awaiting upstream patch or confirmation</span>
+            </div>
+            <span class="group-count gc-orange">18</span>
+            <span class="group-toggle" id="g2-toggle">▲</span>
+          </div>
+          <div id="g2-body">
+            <div class="tbl-head">
+              <div>RISK</div>
+              <div>PACKAGE</div>
+              <div>CVE</div>
+              <div>TITLE</div>
+              <div style="text-align:center;">CVSS</div>
+              <div>REPOSITORY</div>
+              <div>DETECTED</div>
+              <div>FIX</div>
+            </div>
+            <div class="findings-table">
+              <div class="finding-row" onclick="openDetail()">
+                <div><span class="risk-badge rb-critical">Critical</span></div>
+                <div class="pkg-name">org.apache.tomcat.e... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div>
+                <div class="cve-id">CVE-2025-24813</div>
+                <div class="row-title">Apache Tomcat: Potential RCE and/or...</div>
+                <div class="cvss-val" style="color:var(--red);">9.8</div>
+                <div class="repo-name">DryRunSecurityDemos/vera...</div>
+                <div class="detected-date">08/17/26 16:53</div>
+                <div><span class="fix-pill fp-pending">No patch</span></div>
+              </div>
+              <div class="finding-row" onclick="openDetail()">
+                <div><span class="risk-badge rb-critical">Critical</span></div>
+                <div class="pkg-name">org.apache.sling:or... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div>
+                <div class="cve-id">CVE-2022-47937</div>
+                <div class="row-title">Apache Sling Commons JSON bundl...</div>
+                <div class="cvss-val" style="color:var(--red);">9.8</div>
+                <div class="repo-name">DryRunSecurityDemos/vera...</div>
+                <div class="detected-date">08/17/26 16:53</div>
+                <div><span class="fix-pill fp-pending">Unconfirmed</span></div>
+              </div>
+              <div class="finding-row" onclick="openDetail()">
+                <div><span class="risk-badge rb-critical">Critical</span></div>
+                <div class="pkg-name">langchain <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div>
+                <div class="cve-id">CVE-2023-36281</div>
+                <div class="row-title">langchain vulnerable to arbitrary code ex...</div>
+                <div class="cvss-val" style="color:var(--red);">9.8</div>
+                <div class="repo-name">DryRunSecurityDemos/mms</div>
+                <div class="detected-date">07/04/26 11:20</div>
+                <div><span class="fix-pill fp-pending">Unconfirmed</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ GROUP 3: NOT ACTIONABLE ════ -->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup('g3')">
+            <div class="group-icon gi-gray">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="var(--text-muted)"><path d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"/></svg>
+            </div>
+            <div class="group-label">
+              Not Actionable
+              <span class="group-label-sub">Low severity, not applicable, or no exploitable vector</span>
+            </div>
+            <span class="group-count gc-gray">934</span>
+            <span class="group-toggle" id="g3-toggle">▼</span>
+          </div>
+          <div id="g3-body" style="display:none;">
+            <div class="tbl-head">
+              <div>RISK</div><div>PACKAGE</div><div>CVE</div><div>TITLE</div>
+              <div style="text-align:center;">CVSS</div><div>REPOSITORY</div><div>DETECTED</div><div>STATUS</div>
+            </div>
+            <div class="findings-table">
+              <div class="finding-row" onclick="openDetail()">
+                <div><span class="risk-badge rb-medium">Medium</span></div>
+                <div class="pkg-name">org.apache.commons <span class="eco-tag">maven</span></div>
+                <div class="cve-id">CVE-2015-7501</div>
+                <div class="row-title">Deserialization of Untrusted Data in...</div>
+                <div class="cvss-val">7.5</div>
+                <div class="repo-name">DryRunSecurityDemos/vera...</div>
+                <div class="detected-date">08/17/26 16:53</div>
+                <div><span class="fix-pill fp-na">Not appl.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /left-panel -->
+
+      <!-- DETAIL PANEL -->
+      <div class="detail-panel" id="detail-panel" style="display:none;">
+        <div class="dp-header">
+          <span class="risk-badge rb-critical" style="flex-shrink:0;">Critical</span>
+          <div class="dp-title">CVE-2026-39892</div>
+          <button class="dp-close" onclick="document.getElementById('detail-panel').style.display='none'">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"/></svg>
+          </button>
+        </div>
+        <div class="dp-tabs">
+          <div class="dp-tab dp-tab--active" onclick="switchDpTab(this,'cve')">CVE Details</div>
+          <div class="dp-tab" onclick="switchDpTab(this,'repos')">Impacted Repositories <span class="dp-tab-count">1</span></div>
+        </div>
+        <div class="dp-body">
+
+          <!-- CVE DETAILS PANEL -->
+          <div class="dp-panel dp-panel--active" id="panel-cve">
+            <div class="dp-field"><span class="dp-label">Package</span><span class="dp-value">cryptography (PyPI)</span></div>
+            <div class="dp-field"><span class="dp-label">CVSS</span><span class="dp-value" style="color:var(--red);font-weight:700;">9.8 / 10</span></div>
+            <div class="dp-field"><span class="dp-label">Version</span><span class="dp-value">46.0.6</span></div>
+            <div class="dp-field"><span class="dp-label">Patched</span><span class="dp-value" style="color:var(--green);font-weight:600;">46.0.7 ✓</span></div>
+            <div class="dp-field"><span class="dp-label">CVE</span><span class="dp-value">CVE-2026-39892</span></div>
+            <div class="dp-field"><span class="dp-label">Vector</span><span class="dp-value" style="font-family:var(--mono);font-size:11px;">CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H</span></div>
+            <div class="dp-field"><span class="dp-label">Files</span><span class="dp-value" style="font-family:var(--mono);font-size:11.5px;line-height:1.7;">scripts/bazel_python/requirements_darwin.txt<br>scripts/python/requirements.txt</span></div>
+            <div class="dp-field"><span class="dp-label">First seen</span><span class="dp-value">05/29/26 20:18:33</span></div>
+            <div class="dp-field"><span class="dp-label">Last seen</span><span class="dp-value">09/01/26 02:00:14</span></div>
+            <div class="dp-field"><span class="dp-label">Branch</span><span class="dp-value">main</span></div>
+
+            <hr class="dp-divider">
+
+            <div class="dp-section-title">Description</div>
+            <p style="font-size:13px;color:var(--text-sec);line-height:1.6;margin-bottom:14px;">Cryptography vulnerable to buffer overflow if non-contiguous buffers were passed to APIs. Directly called with user-supplied input via the encryption endpoint.</p>
+
+            <!-- ── PREMIUM SECTION ── -->
+            <div class="premium-section">
+              <div class="premium-section-header">
+                <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                SCA Premium Data
+              </div>
+              <div class="premium-section-body">
+
+                <div style="font-size:12px;font-weight:600;color:var(--text-sec);margin-bottom:6px;">Dependency Path</div>
+                <div class="dep-path">
+                  <span class="dep-path-node dep-path-node--root">mms</span>
+                  <span class="dep-path-arrow">→</span>
+                  <span class="dep-path-node">bazel_python@2.1.0</span>
+                  <span class="dep-path-arrow">→</span>
+                  <span class="dep-path-node dep-path-node--vuln">cryptography@46.0.6</span>
+                </div>
+                <div style="font-size:11px;color:var(--text-muted);margin-top:5px;margin-bottom:14px;">Direct dependency — vulnerable function called with user-supplied input</div>
+
+                <div style="font-size:12px;font-weight:600;color:var(--text-sec);margin-bottom:7px;">Severity History</div>
+                <div class="sev-history">
+                  <div class="sev-event">
+                    <span class="sev-event-date">05/29/26</span>
+                    <div class="sev-event-change">
+                      <span class="risk-badge rb-high" style="font-size:10px;padding:1px 6px;">High</span>
+                      <span class="sev-arrow">→</span>
+                      <span class="risk-badge rb-critical" style="font-size:10px;padding:1px 6px;">Critical</span>
+                      <span class="sev-up" style="font-size:11px;margin-left:4px;">↑ Upgraded</span>
+                    </div>
+                  </div>
+                  <div class="sev-event">
+                    <span class="sev-event-date">05/01/26</span>
+                    <div class="sev-event-change">
+                      <span class="risk-badge rb-medium" style="font-size:10px;padding:1px 6px;">Medium</span>
+                      <span class="sev-arrow">→</span>
+                      <span class="risk-badge rb-high" style="font-size:10px;padding:1px 6px;">High</span>
+                      <span class="sev-up" style="font-size:11px;margin-left:4px;">↑ Upgraded</span>
+                    </div>
+                  </div>
+                  <div class="sev-event">
+                    <span class="sev-event-date">04/15/26</span>
+                    <div class="sev-event-change">
+                      <span style="font-size:11.5px;color:var(--text-muted);">First detected as</span>
+                      <span class="risk-badge rb-medium" style="font-size:10px;padding:1px 6px;margin-left:4px;">Medium</span>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="dp-divider">
+
+                <div class="upgrade-rec">
+                  <div class="upgrade-rec-label">Recommended fix</div>
+                  <div class="upgrade-rec-cmd">pip install cryptography==46.0.7</div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="dp-section-title">References</div>
+            <div style="display:flex;flex-direction:column;gap:5px;font-size:12px;">
+              <a href="#" style="color:var(--purple);">http://www.openwall.com/lists/oss-security/2026/04/08/12 ↗</a>
+              <a href="#" style="color:var(--purple);">https://nvd.nist.gov/vuln/detail/CVE-2026-39892 ↗</a>
+              <a href="#" style="color:var(--purple);">https://github.com/pyca/cryptography ↗</a>
+            </div>
+
+          </div><!-- /panel-cve -->
+
+          <!-- IMPACTED REPOS PANEL -->
+          <div class="dp-panel" id="panel-repos">
+            <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px;">1 impacted repository</div>
+            <div class="repo-card">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div class="repo-card-name">DryRunSecurityDemos/mms</div>
+                <span class="status-pill sp-active">Active</span>
+              </div>
+              <div class="repo-card-meta">
+                <div>Version: <strong>46.0.6</strong></div>
+                <div>Detected: 05/29/26 20:18:33</div>
+                <div>Branch: main</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /dp-body -->
+      </div><!-- /detail-panel -->
+
+    </div><!-- /content-area -->
+  </div><!-- /main -->
+</div><!-- /shell -->
+
+<!-- FILTER PANEL -->
+<div class="filter-panel" id="filter-panel">
+  <div class="fp-title">Filter Dependencies</div>
+  <div class="fp-section">
+    <div class="fp-section-header">RISK <span>Any ∧</span></div>
+    <div class="fp-options">
+      <label class="fp-cb"><input type="checkbox"> Critical</label>
+      <label class="fp-cb"><input type="checkbox"> High</label>
+      <label class="fp-cb"><input type="checkbox"> Medium</label>
+      <label class="fp-cb"><input type="checkbox"> Low</label>
+    </div>
+  </div>
+  <div class="fp-section">
+    <div class="fp-section-header">ECOSYSTEM <span>Any ∨</span></div>
+  </div>
+  <div class="fp-section">
+    <div class="fp-section-header">TYPE <span>Any ∨</span></div>
+    <div class="fp-options">
+      <label class="fp-cb"><input type="checkbox"> Direct</label>
+      <label class="fp-cb"><input type="checkbox"> Transitive</label>
+    </div>
+  </div>
+  <div class="fp-section">
+    <div class="fp-section-header">FIX AVAILABLE <span>Any ∨</span></div>
+    <div class="fp-options">
+      <label class="fp-cb"><input type="checkbox"> Available</label>
+      <label class="fp-cb"><input type="checkbox"> Pending</label>
+      <label class="fp-cb"><input type="checkbox"> N/A</label>
+    </div>
+  </div>
+  <div class="fp-section">
+    <div class="fp-section-header">STATUS <span>Active Only ∧</span></div>
+    <div class="fp-options">
+      <label class="fp-cb"><input type="checkbox" checked> Active Only</label>
+      <label class="fp-cb"><input type="checkbox"> Include Resolved</label>
+    </div>
+  </div>
+  <div class="fp-footer">
+    <button class="fp-clear" onclick="toggleFilter()">Clear All</button>
+    <button class="fp-apply" onclick="toggleFilter()">Apply Filters</button>
+  </div>
+</div>
+
+<script>
+function openDetail() {
+  document.getElementById('detail-panel').style.display = 'flex';
+  document.querySelectorAll('.finding-row').forEach(r => r.classList.remove('finding-row--selected'));
+  event.currentTarget.classList.add('finding-row--selected');
+}
+
+function switchDpTab(btn, panelId) {
+  document.querySelectorAll('.dp-tab').forEach(t => t.classList.remove('dp-tab--active'));
+  btn.classList.add('dp-tab--active');
+  document.querySelectorAll('.dp-panel').forEach(p => p.classList.remove('dp-panel--active'));
+  document.getElementById('panel-' + panelId).classList.add('dp-panel--active');
+}
+
+function toggleGroup(id) {
+  const body = document.getElementById(id + '-body');
+  const toggle = document.getElementById(id + '-toggle');
+  const hidden = body.style.display === 'none';
+  body.style.display = hidden ? '' : 'none';
+  toggle.textContent = hidden ? '▲' : '▼';
+}
+
+function toggleFilter() {
+  document.getElementById('filter-panel').classList.toggle('open');
+}
+
+document.addEventListener('click', e => {
+  const fp = document.getElementById('filter-panel');
+  if (!fp.contains(e.target) && !e.target.closest('.filter-btn')) {
+    fp.classList.remove('open');
+  }
+});
+</script>
+
+<script src="gate.js"></script>
+</body>
+</html>
