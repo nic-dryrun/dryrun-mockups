@@ -248,6 +248,15 @@
     .ci-new { display: inline-flex; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: var(--purple-light); color: var(--purple); border: 1px solid var(--purple-mid); }
 
 
+
+    /* ── TABS ── */
+    .sc-tab { padding: 9px 14px; font-size: 13px; font-weight: 500; border: none; background: none; cursor: pointer; color: var(--text-muted); font-family: var(--font); border-bottom: 2px solid transparent; margin-bottom: -2px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .sc-tab:hover { color: var(--text); }
+    .sc-tab--active { color: var(--purple); border-bottom-color: var(--purple); font-weight: 600; }
+    .sc-tc { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--bg); border: 1px solid var(--border); font-size: 10px; font-weight: 700; color: var(--text-muted); }
+    .sc-tab--active .sc-tc { background: var(--purple-light); border-color: var(--purple-mid); color: var(--purple); }
+    .sc-panel { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+
     /* Flat mode */
     .left-panel.flat-mode .group { border: none; margin-bottom: 0; }
     .left-panel.flat-mode .group-header { display: none; }
@@ -353,30 +362,27 @@
       <div class="left-panel">
 
 
-        <!-- Severity tiles -->
-        <div class="severity-tiles">
-          <div class="sev-tile">
-            <div class="sev-tile-label"><span class="sev-dot dot-critical"></span> Critical</div>
-            <div class="sev-tile-value">46</div>
-          </div>
-          <div class="sev-tile">
-            <div class="sev-tile-label"><span class="sev-dot dot-high"></span> High</div>
-            <div class="sev-tile-value">342</div>
-          </div>
-          <div class="sev-tile">
-            <div class="sev-tile-label"><span class="sev-dot dot-medium"></span> Medium</div>
-            <div class="sev-tile-value">330</div>
-          </div>
-          <div class="sev-tile">
-            <div class="sev-tile-label"><span class="sev-dot dot-low"></span> Low</div>
-            <div class="sev-tile-value">93</div>
-          </div>
+        <!-- ════ TABS ════ -->
+        <div style="display:flex;align-items:center;gap:2px;border-bottom:2px solid var(--border);margin-bottom:18px;">
+          <button class="sc-tab sc-tab--active" data-tab="all"       onclick="switchTab('all')"        >All <span class="sc-tc" id="tc-all">960</span></button>
+          <button class="sc-tab"               data-tab="actionable" onclick="switchTab('actionable')" ><span style="display:inline-flex;align-items:center;gap:4px;"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor" style="color:var(--green)"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>Actionable Now</span> <span class="sc-tc" id="tc-actionable">8</span></button>
+          <button class="sc-tab"               data-tab="pending"    onclick="switchTab('pending')"    ><span style="display:inline-flex;align-items:center;gap:4px;"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor" style="color:var(--orange)"><path d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"/></svg>Fix Pending</span> <span class="sc-tc" id="tc-pending">18</span></button>
+          <button class="sc-tab"               data-tab="notaction"  onclick="switchTab('notaction')"  >Not Actionable <span class="sc-tc" id="tc-notaction">934</span></button>
+          <button class="sc-tab"               data-tab="resolved"   onclick="switchTab('resolved')"   ><span style="display:inline-flex;align-items:center;gap:4px;"><svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor" style="color:#1d4ed8"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>Resolved</span> <span class="sc-tc" id="tc-resolved">5</span></button>
         </div>
 
-        <!-- Findings header + toolbar -->
+        <!-- Severity tiles -->
+        <div class="severity-tiles">
+          <div class="sev-tile"><div class="sev-tile-label"><span class="sev-dot dot-critical"></span> Critical</div><div class="sev-tile-value" id="sv-critical">46</div></div>
+          <div class="sev-tile"><div class="sev-tile-label"><span class="sev-dot dot-high"></span> High</div><div class="sev-tile-value" id="sv-high">342</div></div>
+          <div class="sev-tile"><div class="sev-tile-label"><span class="sev-dot dot-medium"></span> Medium</div><div class="sev-tile-value" id="sv-medium">330</div></div>
+          <div class="sev-tile"><div class="sev-tile-label"><span class="sev-dot dot-low"></span> Low</div><div class="sev-tile-value" id="sv-low">93</div></div>
+        </div>
+
+        <!-- Findings toolbar -->
         <div class="findings-header">
           <div class="findings-title">Findings</div>
-          <div class="findings-total">960 TOTAL FINDINGS</div>
+          <div class="findings-total" id="findings-total">960 TOTAL FINDINGS</div>
         </div>
         <div class="findings-toolbar">
           <div class="search-wrap">
@@ -385,255 +391,88 @@
           </div>
           <button class="filter-btn" onclick="toggleFilter()">
             <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M.75 3h14.5a.75.75 0 000-1.5H.75a.75.75 0 000 1.5zM3 7.75A.75.75 0 013.75 7h8.5a.75.75 0 010 1.5h-8.5A.75.75 0 013 7.75zm3 4a.75.75 0 01.75-.75h2.5a.75.75 0 010 1.5h-2.5a.75.75 0 01-.75-.75z"/></svg>
-            Filter
-            <span class="filter-count">1</span>
+            Filter <span class="filter-count">1</span>
           </button>
         </div>
 
-        <!-- ════ GROUP 1: ACTIONABLE NOW ════ -->
-        <div class="group">
-          <div class="group-header" onclick="toggleGroup('g1')">
-            <div class="group-icon gi-green">
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="var(--green)"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-            </div>
-            <div class="group-label">
-              Actionable Now
-              <span class="group-label-sub">Fix available · Direct dependencies</span>
-              <span class="group-curated">
-                <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
-                Curated
-              </span>
-            </div>
-            <span class="group-count gc-green">8</span>
-            <span class="group-toggle" id="g1-toggle">▲</span>
-          </div>
-          <div id="g1-body">
-            <!-- Table header -->
-            <div class="tbl-head">
-              <div class="tbl-head-btn">RISK <span class="sort-icon">↕</span></div>
-              <div class="tbl-head-btn">PACKAGE <span class="sort-icon">↕</span></div>
-              <div class="tbl-head-btn">CVE <span class="sort-icon">↕</span></div>
-              <div class="tbl-head-btn">TITLE</div>
-              <div class="tbl-head-btn" style="text-align:center;">CVSS <span class="sort-icon">↓</span></div>
-              <div>REPOSITORY</div>
-              <div>DETECTED</div>
-              <div>FIX</div>
-            </div>
-            <div class="findings-table">
-              <div class="finding-row finding-row--selected" onclick="openDetail()">
-                <div><span class="risk-badge rb-critical">Critical</span></div>
-                <div class="pkg-name">cryptography <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div>
-                <div class="cve-id">CVE-2026-39892</div>
-                <div class="row-title">Cryptography vulnerable to buffer overflow...</div>
-                <div class="cvss-val" style="color:var(--red);">9.8</div>
-                <div class="repo-name">DryRunSecurityDemos/mms</div>
-                <div class="detected-date">05/29/26 20:18</div>
-                <div><span class="fix-pill fp-available"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>46.0.7</span></div>
-              </div>
-              <div class="finding-row" onclick="openDetail()">
-                <div><span class="risk-badge rb-critical">Critical</span></div>
-                <div class="pkg-name">handlebars <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div>
-                <div class="cve-id">CVE-2026-33937</div>
-                <div class="row-title">Handlebars.js has JavaScript Injection via...</div>
-                <div class="cvss-val" style="color:var(--red);">9.8</div>
-                <div class="repo-name">DryRunSecurityDemos/mms</div>
-                <div class="detected-date">05/29/26 20:18</div>
-                <div><span class="fix-pill fp-available"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>4.7.8</span></div>
-              </div>
-              <div class="finding-row" onclick="openDetail()">
-                <div><span class="risk-badge rb-critical">Critical</span></div>
-                <div class="pkg-name">log4j:log4j <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div>
-                <div class="cve-id">CVE-2022-23307</div>
-                <div class="row-title">Deserialization of Untrusted Data in Log4j...</div>
-                <div class="cvss-val" style="color:var(--red);">9.8</div>
-                <div class="repo-name">DryRunSecurityDemos/vera...</div>
-                <div class="detected-date">08/17/26 16:53</div>
-                <div><span class="fix-pill fp-available"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>2.17.2</span></div>
-              </div>
-              <div class="finding-row" onclick="openDetail()">
-                <div><span class="risk-badge rb-high">High</span></div>
-                <div class="pkg-name">pillow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div>
-                <div class="cve-id">CVE-2026-28228</div>
-                <div class="row-title">Pillow: PIL.ImageMath.eval allows arbitrary...</div>
-                <div class="cvss-val" style="color:var(--orange);">8.8</div>
-                <div class="repo-name">DryRunSecurityDemos/mms</div>
-                <div class="detected-date">06/12/26 09:44</div>
-                <div><span class="fix-pill fp-available"><svg width="8" height="8" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>10.4.0</span></div>
-              </div>
-            </div>
-          </div>
+        <!-- Standard table header (reused across tabs) -->
+        <div class="tbl-head" id="main-tbl-head">
+          <div class="tbl-head-btn">RISK <span class="sort-icon">↕</span></div>
+          <div class="tbl-head-btn">PACKAGE <span class="sort-icon">↕</span></div>
+          <div class="tbl-head-btn">CVE <span class="sort-icon">↕</span></div>
+          <div class="tbl-head-btn">TITLE</div>
+          <div class="tbl-head-btn" style="text-align:center;">CVSS <span class="sort-icon">↓</span></div>
+          <div>REPOSITORY</div>
+          <div id="col-detected">DETECTED</div>
+          <div id="col-last">FIX / STATUS</div>
         </div>
 
-        <!-- ════ GROUP 2: FIX PENDING ════ -->
-        <div class="group">
-          <div class="group-header" onclick="toggleGroup('g2')">
-            <div class="group-icon gi-orange">
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="var(--orange)"><path d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"/></svg>
-            </div>
-            <div class="group-label">
-              Fix Pending
-              <span class="group-label-sub">Exploitable · Awaiting upstream patch or confirmation</span>
-            </div>
-            <span class="group-count gc-orange">18</span>
-            <span class="group-toggle" id="g2-toggle">▲</span>
+        <!-- ════ TAB PANELS ════ -->
+
+        <!-- ALL -->
+        <div class="sc-panel" id="panel-all">
+          <div class="findings-table">
+            <div class="finding-row finding-row--selected" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">cryptography <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-39892</div><div class="row-title">Cryptography vulnerable to buffer overflow...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">46.0.7</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">handlebars <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-33937</div><div class="row-title">Handlebars.js has JavaScript Injection...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">4.7.8</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">log4j:log4j <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2022-23307</div><div class="row-title">Deserialization of Untrusted Data in Log4j...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.17.2</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.tomcat.e... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2025-24813</div><div class="row-title">Apache Tomcat: Potential RCE and/or...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">No patch</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.sling:or... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2022-47937</div><div class="row-title">Apache Sling Commons JSON bundl...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">langchain <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2023-36281</div><div class="row-title">langchain vulnerable to arbitrary code...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/04/26 11:20</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">pillow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-28228</div><div class="row-title">Pillow: PIL.ImageMath.eval allows arbitrary...</div><div class="cvss-val" style="color:var(--orange);">8.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/12/26 09:44</div><div><span class="fix-pill fp-available">10.4.0</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">org.apache.commons <span class="eco-tag">maven</span></div><div class="cve-id">CVE-2015-7501</div><div class="row-title">Deserialization of Untrusted Data...</div><div class="cvss-val">7.5</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-na">Not appl.</span></div></div>
+            <div class="finding-row" style="opacity:0.65;" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">requests <span class="eco-tag">pypi</span></div><div class="cve-id">CVE-2024-35195</div><div class="row-title">Requests forwards proxy-authorization...</div><div class="cvss-val" style="color:var(--red);">9.1</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">08/12/26 → 2.32.3</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" style="opacity:0.65;" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">express <span class="eco-tag">npm</span></div><div class="cve-id">CVE-2024-29041</div><div class="row-title">Express.js open redirect vulnerability...</div><div class="cvss-val" style="color:var(--orange);">8.6</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">07/30/26 → 4.19.2</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
           </div>
-          <div id="g2-body">
-            <div class="tbl-head">
-              <div>RISK</div>
-              <div>PACKAGE</div>
-              <div>CVE</div>
-              <div>TITLE</div>
-              <div style="text-align:center;">CVSS</div>
-              <div>REPOSITORY</div>
-              <div>DETECTED</div>
-              <div>FIX</div>
-            </div>
-            <div class="findings-table">
-              <div class="finding-row" onclick="openDetail()">
-                <div><span class="risk-badge rb-critical">Critical</span></div>
-                <div class="pkg-name">org.apache.tomcat.e... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div>
-                <div class="cve-id">CVE-2025-24813</div>
-                <div class="row-title">Apache Tomcat: Potential RCE and/or...</div>
-                <div class="cvss-val" style="color:var(--red);">9.8</div>
-                <div class="repo-name">DryRunSecurityDemos/vera...</div>
-                <div class="detected-date">08/17/26 16:53</div>
-                <div><span class="fix-pill fp-pending">No patch</span></div>
-              </div>
-              <div class="finding-row" onclick="openDetail()">
-                <div><span class="risk-badge rb-critical">Critical</span></div>
-                <div class="pkg-name">org.apache.sling:or... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div>
-                <div class="cve-id">CVE-2022-47937</div>
-                <div class="row-title">Apache Sling Commons JSON bundl...</div>
-                <div class="cvss-val" style="color:var(--red);">9.8</div>
-                <div class="repo-name">DryRunSecurityDemos/vera...</div>
-                <div class="detected-date">08/17/26 16:53</div>
-                <div><span class="fix-pill fp-pending">Unconfirmed</span></div>
-              </div>
-              <div class="finding-row" onclick="openDetail()">
-                <div><span class="risk-badge rb-critical">Critical</span></div>
-                <div class="pkg-name">langchain <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div>
-                <div class="cve-id">CVE-2023-36281</div>
-                <div class="row-title">langchain vulnerable to arbitrary code ex...</div>
-                <div class="cvss-val" style="color:var(--red);">9.8</div>
-                <div class="repo-name">DryRunSecurityDemos/mms</div>
-                <div class="detected-date">07/04/26 11:20</div>
-                <div><span class="fix-pill fp-pending">Unconfirmed</span></div>
-              </div>
-            </div>
-          </div>
+          <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">Showing 10 of 960 findings — sorted by severity</div>
         </div>
 
-        <!-- ════ GROUP 3: NOT ACTIONABLE ════ -->
-        <div class="group">
-          <div class="group-header" onclick="toggleGroup('g3')">
-            <div class="group-icon gi-gray">
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="var(--text-muted)"><path d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"/></svg>
-            </div>
-            <div class="group-label">
-              Not Actionable
-              <span class="group-label-sub">Low severity, not applicable, or no exploitable vector</span>
-            </div>
-            <span class="group-count gc-gray">934</span>
-            <span class="group-toggle" id="g3-toggle">▼</span>
+        <!-- ACTIONABLE NOW -->
+        <div class="sc-panel" id="panel-actionable" style="display:none;">
+          <div class="findings-table">
+            <div class="finding-row finding-row--selected" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">cryptography <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-39892</div><div class="row-title">Cryptography vulnerable to buffer overflow...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">46.0.7</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">handlebars <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-33937</div><div class="row-title">Handlebars.js has JavaScript Injection...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">4.7.8</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">log4j:log4j <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2022-23307</div><div class="row-title">Deserialization of Untrusted Data in Log4j...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.17.2</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">pillow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-28228</div><div class="row-title">Pillow: PIL.ImageMath.eval allows arbitrary...</div><div class="cvss-val" style="color:var(--orange);">8.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/12/26 09:44</div><div><span class="fix-pill fp-available">10.4.0</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.commons:... <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2021-29425</div><div class="row-title">Apache Commons IO: path traversal...</div><div class="cvss-val" style="color:var(--red);">9.1</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.11.0</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">com.fasterxml.jackson... <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2019-12086</div><div class="row-title">Jackson Databind unsafe deserialization...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.14.3</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">pymongo <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-5629</div><div class="row-title">PyMongo out-of-bounds read via crafted...</div><div class="cvss-val" style="color:var(--orange);">8.1</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/22/26 14:08</div><div><span class="fix-pill fp-available">4.7.3</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">tensorflow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-3596</div><div class="row-title">TensorFlow heap overflow in parsing...</div><div class="cvss-val" style="color:var(--red);">9.6</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/01/26 09:11</div><div><span class="fix-pill fp-available">2.16.2</span></div></div>
           </div>
-          <div id="g3-body" style="display:none;">
-            <div class="tbl-head">
-              <div>RISK</div><div>PACKAGE</div><div>CVE</div><div>TITLE</div>
-              <div style="text-align:center;">CVSS</div><div>REPOSITORY</div><div>DETECTED</div><div>STATUS</div>
-            </div>
-            <div class="findings-table">
-              <div class="finding-row" onclick="openDetail()">
-                <div><span class="risk-badge rb-medium">Medium</span></div>
-                <div class="pkg-name">org.apache.commons <span class="eco-tag">maven</span></div>
-                <div class="cve-id">CVE-2015-7501</div>
-                <div class="row-title">Deserialization of Untrusted Data in...</div>
-                <div class="cvss-val">7.5</div>
-                <div class="repo-name">DryRunSecurityDemos/vera...</div>
-                <div class="detected-date">08/17/26 16:53</div>
-                <div><span class="fix-pill fp-na">Not appl.</span></div>
-              </div>
-            </div>
-          </div>
+          <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">8 findings — direct dependencies with patch available now</div>
         </div>
 
+        <!-- FIX PENDING -->
+        <div class="sc-panel" id="panel-pending" style="display:none;">
+          <div class="findings-table">
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.tomcat.e... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2025-24813</div><div class="row-title">Apache Tomcat: Potential RCE and/or...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">No patch</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.sling:or... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2022-47937</div><div class="row-title">Apache Sling Commons JSON bundl...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">langchain <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2023-36281</div><div class="row-title">langchain vulnerable to arbitrary code...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/04/26 11:20</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">vm2 <span class="eco-tag">npm</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2023-37466</div><div class="row-title">vm2 Sandbox Escape vulnerability...</div><div class="cvss-val" style="color:var(--orange);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/30/26 08:00</div><div><span class="fix-pill fp-pending">Deprecated</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">spring-webmvc <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2024-38809</div><div class="row-title">Spring MVC DoS via crafted HTTP...</div><div class="cvss-val" style="color:var(--red);">9.3</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/01/26 12:00</div><div><span class="fix-pill fp-pending">No patch</span></div></div>
+          </div>
+          <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">Showing 5 of 18 findings — awaiting upstream patch or transitive confirmation</div>
+        </div>
 
-        <!-- ════ GROUP 4: RESOLVED ════ -->
-        <div class="group">
-          <div class="group-header" onclick="toggleGroup('g4')">
-            <div class="group-icon" style="background:#dbeafe;">
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="#1d4ed8"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
-            </div>
-            <div class="group-label">
-              Resolved
-              <span class="group-label-sub">Vulnerable package updated on subsequent scan</span>
-            </div>
-            <span class="group-count" style="background:#dbeafe;color:#1d4ed8;">5</span>
-            <span class="group-toggle" id="g4-toggle">▼</span>
+        <!-- NOT ACTIONABLE -->
+        <div class="sc-panel" id="panel-notaction" style="display:none;">
+          <div class="findings-table">
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">org.apache.commons <span class="eco-tag">maven</span></div><div class="cve-id">CVE-2015-7501</div><div class="row-title">Deserialization of Untrusted Data...</div><div class="cvss-val">7.5</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-na">Not appl.</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-low">Low</span></div><div class="pkg-name">braces <span class="eco-tag">npm</span></div><div class="cve-id">CVE-2024-4068</div><div class="row-title">braces: fails to limit the number of...</div><div class="cvss-val">3.7</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/05/26 11:00</div><div><span class="fix-pill fp-na">Low sev.</span></div></div>
+            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">semver <span class="eco-tag">npm</span></div><div class="cve-id">CVE-2022-25883</div><div class="row-title">semver vulnerable to ReDoS...</div><div class="cvss-val">5.3</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/12/26 09:30</div><div><span class="fix-pill fp-na">Not appl.</span></div></div>
           </div>
-          <div id="g4-body" style="display:none;">
-            <div class="tbl-head">
-              <div>RISK</div>
-              <div>PACKAGE</div>
-              <div>CVE</div>
-              <div>TITLE</div>
-              <div style="text-align:center;">CVSS</div>
-              <div>REPOSITORY</div>
-              <div>RESOLVED</div>
-              <div>STATUS</div>
-            </div>
-            <div class="findings-table">
-              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
-                <div><span class="risk-badge rb-critical">Critical</span></div>
-                <div class="pkg-name">requests <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div>
-                <div class="cve-id">CVE-2024-35195</div>
-                <div class="row-title">Requests forwards proxy-authorization to destination...</div>
-                <div class="cvss-val">9.1</div>
-                <div class="repo-name">DryRunSecurityDemos/mms</div>
-                <div class="detected-date" style="color:var(--green);">08/12/26 → 2.32.3</div>
-                <div><span class="status-pill sp-resolved">Resolved</span></div>
-              </div>
-              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
-                <div><span class="risk-badge rb-high">High</span></div>
-                <div class="pkg-name">express <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div>
-                <div class="cve-id">CVE-2024-29041</div>
-                <div class="row-title">Express.js open redirect vulnerability...</div>
-                <div class="cvss-val">8.6</div>
-                <div class="repo-name">DryRunSecurityDemos/mms</div>
-                <div class="detected-date" style="color:var(--green);">07/30/26 → 4.19.2</div>
-                <div><span class="status-pill sp-resolved">Resolved</span></div>
-              </div>
-              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
-                <div><span class="risk-badge rb-high">High</span></div>
-                <div class="pkg-name">axios <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div>
-                <div class="cve-id">CVE-2024-39338</div>
-                <div class="row-title">Axios allows server-side request forgery...</div>
-                <div class="cvss-val">7.5</div>
-                <div class="repo-name">DryRunSecurityDemos/vera...</div>
-                <div class="detected-date" style="color:var(--green);">07/15/26 → 1.7.4</div>
-                <div><span class="status-pill sp-resolved">Resolved</span></div>
-              </div>
-              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
-                <div><span class="risk-badge rb-medium">Medium</span></div>
-                <div class="pkg-name">setuptools <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div>
-                <div class="cve-id">CVE-2024-6345</div>
-                <div class="row-title">Remote code execution via malicious URL...</div>
-                <div class="cvss-val">6.8</div>
-                <div class="repo-name">DryRunSecurityDemos/mms</div>
-                <div class="detected-date" style="color:var(--green);">06/28/26 → 70.0.0</div>
-                <div><span class="status-pill sp-resolved">Resolved</span></div>
-              </div>
-              <div class="finding-row" style="opacity:0.65;" onclick="openDetail()">
-                <div><span class="risk-badge rb-medium">Medium</span></div>
-                <div class="pkg-name">werkzeug <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div>
-                <div class="cve-id">CVE-2024-34069</div>
-                <div class="row-title">Werkzeug debugger vulnerable to RCE...</div>
-                <div class="cvss-val">6.3</div>
-                <div class="repo-name">DryRunSecurityDemos/mms</div>
-                <div class="detected-date" style="color:var(--green);">06/10/26 → 3.0.3</div>
-                <div><span class="status-pill sp-resolved">Resolved</span></div>
-              </div>
-            </div>
+          <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">Showing 3 of 934 findings — low severity, not applicable, or no exploitable vector</div>
+        </div>
+
+        <!-- RESOLVED -->
+        <div class="sc-panel" id="panel-resolved" style="display:none;">
+          <div class="findings-table">
+            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">requests <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-35195</div><div class="row-title">Requests forwards proxy-authorization...</div><div class="cvss-val" style="color:var(--red);">9.1</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">08/12/26 → 2.32.3</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">express <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-29041</div><div class="row-title">Express.js open redirect vulnerability...</div><div class="cvss-val" style="color:var(--orange);">8.6</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">07/30/26 → 4.19.2</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">axios <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-39338</div><div class="row-title">Axios allows server-side request forgery...</div><div class="cvss-val" style="color:var(--orange);">7.5</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date" style="color:var(--green);">07/15/26 → 1.7.4</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">setuptools <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2024-6345</div><div class="row-title">Remote code execution via malicious URL...</div><div class="cvss-val">6.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">06/28/26 → 70.0.0</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">werkzeug <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-34069</div><div class="row-title">Werkzeug debugger vulnerable to RCE...</div><div class="cvss-val">6.3</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">06/10/26 → 3.0.3</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
           </div>
+          <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">5 resolved findings — vulnerable package updated on a subsequent scan</div>
         </div>
 
       </div><!-- /left-panel -->
@@ -811,6 +650,32 @@
 </div>
 
 <script>
+
+// ── TABS ──
+const TAB_DATA = {
+  all:        { critical:46,  high:342, medium:330, low:93,  total:960 },
+  actionable: { critical:6,   high:2,   medium:0,   low:0,   total:8   },
+  pending:    { critical:11,  high:6,   medium:1,   low:0,   total:18  },
+  notaction:  { critical:26,  high:331, medium:486, low:91,  total:934 },
+  resolved:   { critical:3,   high:2,   medium:2,   low:2,   total:5   },
+};
+function switchTab(tab) {
+  // Update tab buttons
+  document.querySelectorAll('.sc-tab').forEach(b => {
+    b.classList.toggle('sc-tab--active', b.dataset.tab === tab);
+  });
+  // Show/hide panels
+  document.querySelectorAll('.sc-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('panel-' + tab).style.display = '';
+  // Update severity tiles
+  const d = TAB_DATA[tab];
+  document.getElementById('sv-critical').textContent = d.critical;
+  document.getElementById('sv-high').textContent     = d.high;
+  document.getElementById('sv-medium').textContent   = d.medium;
+  document.getElementById('sv-low').textContent      = d.low;
+  document.getElementById('findings-total').textContent = d.total + ' TOTAL FINDINGS';
+}
+
 function setView(mode, btn) {
   document.querySelectorAll('.vt-btn').forEach(b => b.classList.remove('vt-btn--active'));
   btn.classList.add('vt-btn--active');
