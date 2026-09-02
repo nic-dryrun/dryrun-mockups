@@ -250,11 +250,30 @@
 
 
     /* ── TABS ── */
-    .sc-tab { padding: 9px 14px; font-size: 13px; font-weight: 500; border: none; background: none; cursor: pointer; color: var(--text-muted); font-family: var(--font); border-bottom: 2px solid transparent; margin-bottom: -2px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-    .sc-tab:hover { color: var(--text); }
-    .sc-tab--active { color: var(--purple); border-bottom-color: var(--purple); font-weight: 600; }
-    .sc-tc { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--bg); border: 1px solid var(--border); font-size: 10px; font-weight: 700; color: var(--text-muted); }
-    .sc-tab--active .sc-tc { background: var(--purple-light); border-color: var(--purple-mid); color: var(--purple); }
+    .sc-tab { padding: 10px 16px; font-size: 13px; font-weight: 500; border: none; background: none; cursor: pointer; color: var(--text-muted); font-family: var(--font); border-bottom: 3px solid transparent; margin-bottom: -3px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+    .sc-tab:hover { color: var(--text); background: var(--bg); }
+    .sc-tab-icon { width: 18px; height: 18px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sc-tc { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; font-size: 10px; font-weight: 700; }
+    /* Per-tab active colors */
+    .sc-tab[data-tab="all"].sc-tab--active           { color: var(--text);    border-bottom-color: var(--text); }
+    .sc-tab[data-tab="all"] .sc-tc                   { background: var(--gray-bg); color: var(--text-muted); border: 1px solid var(--gray-border); }
+    .sc-tab[data-tab="all"].sc-tab--active .sc-tc    { background: var(--text); color: white; border-color: var(--text); }
+    .sc-tab[data-tab="actionable"].sc-tab--active           { color: var(--green); border-bottom-color: var(--green); }
+    .sc-tab[data-tab="actionable"] .sc-tab-icon             { background: var(--green-bg); }
+    .sc-tab[data-tab="actionable"] .sc-tc                   { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+    .sc-tab[data-tab="actionable"].sc-tab--active .sc-tc    { background: var(--green); color: white; border-color: var(--green); }
+    .sc-tab[data-tab="pending"].sc-tab--active           { color: var(--orange); border-bottom-color: var(--orange); }
+    .sc-tab[data-tab="pending"] .sc-tab-icon             { background: var(--orange-bg); }
+    .sc-tab[data-tab="pending"] .sc-tc                   { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+    .sc-tab[data-tab="pending"].sc-tab--active .sc-tc    { background: var(--orange); color: white; border-color: var(--orange); }
+    .sc-tab[data-tab="notaction"].sc-tab--active           { color: var(--text-sec); border-bottom-color: var(--text-sec); }
+    .sc-tab[data-tab="notaction"] .sc-tab-icon             { background: var(--gray-bg); }
+    .sc-tab[data-tab="notaction"] .sc-tc                   { background: var(--gray-bg); color: var(--text-muted); border: 1px solid var(--gray-border); }
+    .sc-tab[data-tab="notaction"].sc-tab--active .sc-tc    { background: var(--text-sec); color: white; border-color: var(--text-sec); }
+    .sc-tab[data-tab="resolved"].sc-tab--active           { color: var(--blue); border-bottom-color: var(--blue); }
+    .sc-tab[data-tab="resolved"] .sc-tab-icon             { background: var(--blue-bg); }
+    .sc-tab[data-tab="resolved"] .sc-tc                   { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+    .sc-tab[data-tab="resolved"].sc-tab--active .sc-tc    { background: var(--blue); color: white; border-color: var(--blue); }
     .sc-panel { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
 
     /* Flat mode */
