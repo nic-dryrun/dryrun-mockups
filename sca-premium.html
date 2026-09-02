@@ -275,6 +275,12 @@
     .sc-tab[data-tab="resolved"] .sc-tc                   { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
     .sc-tab[data-tab="resolved"].sc-tab--active .sc-tc    { background: var(--blue); color: white; border-color: var(--blue); }
     .sc-panel { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+    .filter-btn--active { background: var(--purple-light) !important; border-color: var(--purple-mid) !important; color: var(--purple) !important; font-weight: 600 !important; }
+    .repo-group-header { display: flex; align-items: center; gap: 10px; padding: 8px 14px; background: var(--bg); border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
+    .repo-group-header:first-child { border-top: none; }
+    .rgh-avatar { width: 22px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: white; flex-shrink: 0; }
+    .rgh-name { font-size: 12.5px; font-weight: 700; flex: 1; }
+    .rgh-count { font-size: 10px; font-weight: 600; padding: 1px 8px; border-radius: 8px; background: var(--border-light); color: var(--text-muted); }
 
     /* Flat mode */
     .left-panel.flat-mode .group { border: none; margin-bottom: 0; }
@@ -412,6 +418,10 @@
             <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M.75 3h14.5a.75.75 0 000-1.5H.75a.75.75 0 000 1.5zM3 7.75A.75.75 0 013.75 7h8.5a.75.75 0 010 1.5h-8.5A.75.75 0 013 7.75zm3 4a.75.75 0 01.75-.75h2.5a.75.75 0 010 1.5h-2.5a.75.75 0 01-.75-.75z"/></svg>
             Filter <span class="filter-count">1</span>
           </button>
+          <button class="filter-btn" id="group-btn" onclick="toggleGroupByRepo()">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 010 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 010 1.5H1.75A.75.75 0 011 7.75zm0 5a.75.75 0 01.75-.75H8a.75.75 0 010 1.5H1.75A.75.75 0 011 12.75z"/></svg>
+            Group by Repo
+          </button>
         </div>
 
         <!-- Standard table header (reused across tabs) -->
@@ -431,16 +441,16 @@
         <!-- ALL -->
         <div class="sc-panel" id="panel-all" style="display:none;">
           <div class="findings-table">
-            <div class="finding-row finding-row--selected" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">cryptography <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-39892</div><div class="row-title">Cryptography vulnerable to buffer overflow...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">46.0.7</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">handlebars <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-33937</div><div class="row-title">Handlebars.js has JavaScript Injection...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">4.7.8</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">log4j:log4j <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2022-23307</div><div class="row-title">Deserialization of Untrusted Data in Log4j...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.17.2</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.tomcat.e... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2025-24813</div><div class="row-title">Apache Tomcat: Potential RCE and/or...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">No patch</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.sling:or... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2022-47937</div><div class="row-title">Apache Sling Commons JSON bundl...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">langchain <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2023-36281</div><div class="row-title">langchain vulnerable to arbitrary code...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/04/26 11:20</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">pillow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-28228</div><div class="row-title">Pillow: PIL.ImageMath.eval allows arbitrary...</div><div class="cvss-val" style="color:var(--orange);">8.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/12/26 09:44</div><div><span class="fix-pill fp-available">10.4.0</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">org.apache.commons <span class="eco-tag">maven</span></div><div class="cve-id">CVE-2015-7501</div><div class="row-title">Deserialization of Untrusted Data...</div><div class="cvss-val">7.5</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-na">Not appl.</span></div></div>
-            <div class="finding-row" style="opacity:0.65;" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">requests <span class="eco-tag">pypi</span></div><div class="cve-id">CVE-2024-35195</div><div class="row-title">Requests forwards proxy-authorization...</div><div class="cvss-val" style="color:var(--red);">9.1</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">08/12/26 → 2.32.3</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
-            <div class="finding-row" style="opacity:0.65;" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">express <span class="eco-tag">npm</span></div><div class="cve-id">CVE-2024-29041</div><div class="row-title">Express.js open redirect vulnerability...</div><div class="cvss-val" style="color:var(--orange);">8.6</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">07/30/26 → 4.19.2</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" data-repo="mms" finding-row--selected" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">cryptography <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-39892</div><div class="row-title">Cryptography vulnerable to buffer overflow...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">46.0.7</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">handlebars <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-33937</div><div class="row-title">Handlebars.js has JavaScript Injection...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">4.7.8</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">log4j:log4j <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2022-23307</div><div class="row-title">Deserialization of Untrusted Data in Log4j...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.17.2</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.tomcat.e... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2025-24813</div><div class="row-title">Apache Tomcat: Potential RCE and/or...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">No patch</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.sling:or... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2022-47937</div><div class="row-title">Apache Sling Commons JSON bundl...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">langchain <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2023-36281</div><div class="row-title">langchain vulnerable to arbitrary code...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/04/26 11:20</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">pillow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-28228</div><div class="row-title">Pillow: PIL.ImageMath.eval allows arbitrary...</div><div class="cvss-val" style="color:var(--orange);">8.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/12/26 09:44</div><div><span class="fix-pill fp-available">10.4.0</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">org.apache.commons <span class="eco-tag">maven</span></div><div class="cve-id">CVE-2015-7501</div><div class="row-title">Deserialization of Untrusted Data...</div><div class="cvss-val">7.5</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-na">Not appl.</span></div></div>
+            <div class="finding-row" data-repo="mms" style="opacity:0.65;" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">requests <span class="eco-tag">pypi</span></div><div class="cve-id">CVE-2024-35195</div><div class="row-title">Requests forwards proxy-authorization...</div><div class="cvss-val" style="color:var(--red);">9.1</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">08/12/26 → 2.32.3</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" data-repo="mms" style="opacity:0.65;" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">express <span class="eco-tag">npm</span></div><div class="cve-id">CVE-2024-29041</div><div class="row-title">Express.js open redirect vulnerability...</div><div class="cvss-val" style="color:var(--orange);">8.6</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">07/30/26 → 4.19.2</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
           </div>
           <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">Showing 10 of 960 findings — sorted by severity</div>
         </div>
@@ -448,14 +458,14 @@
         <!-- ACTIONABLE NOW -->
         <div class="sc-panel" id="panel-actionable">
           <div class="findings-table">
-            <div class="finding-row finding-row--selected" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">cryptography <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-39892</div><div class="row-title">Cryptography vulnerable to buffer overflow...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">46.0.7</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">handlebars <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-33937</div><div class="row-title">Handlebars.js has JavaScript Injection...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">4.7.8</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">log4j:log4j <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2022-23307</div><div class="row-title">Deserialization of Untrusted Data in Log4j...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.17.2</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">pillow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-28228</div><div class="row-title">Pillow: PIL.ImageMath.eval allows arbitrary...</div><div class="cvss-val" style="color:var(--orange);">8.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/12/26 09:44</div><div><span class="fix-pill fp-available">10.4.0</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.commons:... <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2021-29425</div><div class="row-title">Apache Commons IO: path traversal...</div><div class="cvss-val" style="color:var(--red);">9.1</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.11.0</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">com.fasterxml.jackson... <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2019-12086</div><div class="row-title">Jackson Databind unsafe deserialization...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.14.3</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">pymongo <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-5629</div><div class="row-title">PyMongo out-of-bounds read via crafted...</div><div class="cvss-val" style="color:var(--orange);">8.1</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/22/26 14:08</div><div><span class="fix-pill fp-available">4.7.3</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">tensorflow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-3596</div><div class="row-title">TensorFlow heap overflow in parsing...</div><div class="cvss-val" style="color:var(--red);">9.6</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/01/26 09:11</div><div><span class="fix-pill fp-available">2.16.2</span></div></div>
+            <div class="finding-row" data-repo="mms" finding-row--selected" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">cryptography <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-39892</div><div class="row-title">Cryptography vulnerable to buffer overflow...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">46.0.7</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">handlebars <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-33937</div><div class="row-title">Handlebars.js has JavaScript Injection...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">05/29/26 20:18</div><div><span class="fix-pill fp-available">4.7.8</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">log4j:log4j <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2022-23307</div><div class="row-title">Deserialization of Untrusted Data in Log4j...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.17.2</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">pillow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2026-28228</div><div class="row-title">Pillow: PIL.ImageMath.eval allows arbitrary...</div><div class="cvss-val" style="color:var(--orange);">8.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/12/26 09:44</div><div><span class="fix-pill fp-available">10.4.0</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.commons:... <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2021-29425</div><div class="row-title">Apache Commons IO: path traversal...</div><div class="cvss-val" style="color:var(--red);">9.1</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.11.0</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">com.fasterxml.jackson... <span class="eco-tag">maven</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2019-12086</div><div class="row-title">Jackson Databind unsafe deserialization...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-available">2.14.3</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">pymongo <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-5629</div><div class="row-title">PyMongo out-of-bounds read via crafted...</div><div class="cvss-val" style="color:var(--orange);">8.1</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/22/26 14:08</div><div><span class="fix-pill fp-available">4.7.3</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">tensorflow <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-3596</div><div class="row-title">TensorFlow heap overflow in parsing...</div><div class="cvss-val" style="color:var(--red);">9.6</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/01/26 09:11</div><div><span class="fix-pill fp-available">2.16.2</span></div></div>
           </div>
           <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">8 findings — direct dependencies with patch available now</div>
         </div>
@@ -463,11 +473,11 @@
         <!-- FIX PENDING -->
         <div class="sc-panel" id="panel-pending" style="display:none;">
           <div class="findings-table">
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.tomcat.e... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2025-24813</div><div class="row-title">Apache Tomcat: Potential RCE and/or...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">No patch</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.sling:or... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2022-47937</div><div class="row-title">Apache Sling Commons JSON bundl...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">langchain <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2023-36281</div><div class="row-title">langchain vulnerable to arbitrary code...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/04/26 11:20</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">vm2 <span class="eco-tag">npm</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2023-37466</div><div class="row-title">vm2 Sandbox Escape vulnerability...</div><div class="cvss-val" style="color:var(--orange);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/30/26 08:00</div><div><span class="fix-pill fp-pending">Deprecated</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">spring-webmvc <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2024-38809</div><div class="row-title">Spring MVC DoS via crafted HTTP...</div><div class="cvss-val" style="color:var(--red);">9.3</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/01/26 12:00</div><div><span class="fix-pill fp-pending">No patch</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.tomcat.e... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2025-24813</div><div class="row-title">Apache Tomcat: Potential RCE and/or...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">No patch</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">org.apache.sling:or... <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2022-47937</div><div class="row-title">Apache Sling Commons JSON bundl...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">langchain <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2023-36281</div><div class="row-title">langchain vulnerable to arbitrary code...</div><div class="cvss-val" style="color:var(--red);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/04/26 11:20</div><div><span class="fix-pill fp-pending">Unconfirmed</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">vm2 <span class="eco-tag">npm</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2023-37466</div><div class="row-title">vm2 Sandbox Escape vulnerability...</div><div class="cvss-val" style="color:var(--orange);">9.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/30/26 08:00</div><div><span class="fix-pill fp-pending">Deprecated</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">spring-webmvc <span class="eco-tag">maven</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2024-38809</div><div class="row-title">Spring MVC DoS via crafted HTTP...</div><div class="cvss-val" style="color:var(--red);">9.3</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/01/26 12:00</div><div><span class="fix-pill fp-pending">No patch</span></div></div>
           </div>
           <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">Showing 5 of 18 findings — awaiting upstream patch or transitive confirmation</div>
         </div>
@@ -475,9 +485,9 @@
         <!-- NOT ACTIONABLE -->
         <div class="sc-panel" id="panel-notaction" style="display:none;">
           <div class="findings-table">
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">org.apache.commons <span class="eco-tag">maven</span></div><div class="cve-id">CVE-2015-7501</div><div class="row-title">Deserialization of Untrusted Data...</div><div class="cvss-val">7.5</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-na">Not appl.</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-low">Low</span></div><div class="pkg-name">braces <span class="eco-tag">npm</span></div><div class="cve-id">CVE-2024-4068</div><div class="row-title">braces: fails to limit the number of...</div><div class="cvss-val">3.7</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/05/26 11:00</div><div><span class="fix-pill fp-na">Low sev.</span></div></div>
-            <div class="finding-row" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">semver <span class="eco-tag">npm</span></div><div class="cve-id">CVE-2022-25883</div><div class="row-title">semver vulnerable to ReDoS...</div><div class="cvss-val">5.3</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/12/26 09:30</div><div><span class="fix-pill fp-na">Not appl.</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">org.apache.commons <span class="eco-tag">maven</span></div><div class="cve-id">CVE-2015-7501</div><div class="row-title">Deserialization of Untrusted Data...</div><div class="cvss-val">7.5</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date">08/17/26 16:53</div><div><span class="fix-pill fp-na">Not appl.</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-low">Low</span></div><div class="pkg-name">braces <span class="eco-tag">npm</span></div><div class="cve-id">CVE-2024-4068</div><div class="row-title">braces: fails to limit the number of...</div><div class="cvss-val">3.7</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">06/05/26 11:00</div><div><span class="fix-pill fp-na">Low sev.</span></div></div>
+            <div class="finding-row" data-repo="mms" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">semver <span class="eco-tag">npm</span></div><div class="cve-id">CVE-2022-25883</div><div class="row-title">semver vulnerable to ReDoS...</div><div class="cvss-val">5.3</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date">07/12/26 09:30</div><div><span class="fix-pill fp-na">Not appl.</span></div></div>
           </div>
           <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">Showing 3 of 934 findings — low severity, not applicable, or no exploitable vector</div>
         </div>
@@ -485,11 +495,11 @@
         <!-- RESOLVED -->
         <div class="sc-panel" id="panel-resolved" style="display:none;">
           <div class="findings-table">
-            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">requests <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-35195</div><div class="row-title">Requests forwards proxy-authorization...</div><div class="cvss-val" style="color:var(--red);">9.1</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">08/12/26 → 2.32.3</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
-            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">express <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-29041</div><div class="row-title">Express.js open redirect vulnerability...</div><div class="cvss-val" style="color:var(--orange);">8.6</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">07/30/26 → 4.19.2</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
-            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">axios <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-39338</div><div class="row-title">Axios allows server-side request forgery...</div><div class="cvss-val" style="color:var(--orange);">7.5</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date" style="color:var(--green);">07/15/26 → 1.7.4</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
-            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">setuptools <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2024-6345</div><div class="row-title">Remote code execution via malicious URL...</div><div class="cvss-val">6.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">06/28/26 → 70.0.0</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
-            <div class="finding-row" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">werkzeug <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-34069</div><div class="row-title">Werkzeug debugger vulnerable to RCE...</div><div class="cvss-val">6.3</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">06/10/26 → 3.0.3</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" data-repo="mms" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-critical">Critical</span></div><div class="pkg-name">requests <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-35195</div><div class="row-title">Requests forwards proxy-authorization...</div><div class="cvss-val" style="color:var(--red);">9.1</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">08/12/26 → 2.32.3</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" data-repo="mms" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">express <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-29041</div><div class="row-title">Express.js open redirect vulnerability...</div><div class="cvss-val" style="color:var(--orange);">8.6</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">07/30/26 → 4.19.2</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" data-repo="vera-demo" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-high">High</span></div><div class="pkg-name">axios <span class="eco-tag">npm</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-39338</div><div class="row-title">Axios allows server-side request forgery...</div><div class="cvss-val" style="color:var(--orange);">7.5</div><div class="repo-name">DryRunSecurityDemos/vera...</div><div class="detected-date" style="color:var(--green);">07/15/26 → 1.7.4</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" data-repo="mms" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">setuptools <span class="eco-tag">pypi</span><span class="dep-type dt-transitive">transitive</span></div><div class="cve-id">CVE-2024-6345</div><div class="row-title">Remote code execution via malicious URL...</div><div class="cvss-val">6.8</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">06/28/26 → 70.0.0</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
+            <div class="finding-row" data-repo="mms" style="opacity:0.7;" onclick="openDetail()"><div><span class="risk-badge rb-medium">Medium</span></div><div class="pkg-name">werkzeug <span class="eco-tag">pypi</span><span class="dep-type dt-direct">direct</span></div><div class="cve-id">CVE-2024-34069</div><div class="row-title">Werkzeug debugger vulnerable to RCE...</div><div class="cvss-val">6.3</div><div class="repo-name">DryRunSecurityDemos/mms</div><div class="detected-date" style="color:var(--green);">06/10/26 → 3.0.3</div><div><span class="status-pill sp-resolved">Resolved</span></div></div>
           </div>
           <div style="padding:10px 14px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light);background:var(--bg);">5 resolved findings — vulnerable package updated on a subsequent scan</div>
         </div>
@@ -739,6 +749,104 @@ document.addEventListener('click', e => {
 });
 </script>
 
+
+<script>
+// Group by Repo toggle
+var groupedMode = false;
+
+var REPO_META = {
+  'mms':       { color: '#7c3aed', label: 'DryRunSecurityDemos / mms' },
+  'vera-demo': { color: '#0369a1', label: 'DryRunSecurityDemos / vera-demo' },
+  'dd-vuln':   { color: '#b45309', label: 'DryRunSecurityDemos / dd-vuln-repo' }
+};
+
+function toggleGroupByRepo() {
+  groupedMode = !groupedMode;
+  var btn = document.getElementById('group-btn');
+  if (groupedMode) {
+    btn.classList.add('filter-btn--active');
+  } else {
+    btn.classList.remove('filter-btn--active');
+  }
+  var panel = getActivePanel();
+  if (panel) {
+    if (groupedMode) { applyGrouping(panel); }
+    else             { removeGrouping(panel); }
+  }
+}
+
+function getActivePanel() {
+  var panels = document.querySelectorAll('.sc-panel');
+  for (var i = 0; i < panels.length; i++) {
+    var s = panels[i].style.display;
+    if (s !== 'none') return panels[i];
+  }
+  return panels[0];
+}
+
+function applyGrouping(panel) {
+  var rows = panel.querySelectorAll('.finding-row');
+  if (!rows.length) return;
+  var table = panel.querySelector('.findings-table');
+  if (!table) return;
+  // Group rows by repo
+  var groups = {}, order = [];
+  rows.forEach(function(r) {
+    var repo = r.getAttribute('data-repo') || 'mms';
+    if (!groups[repo]) { groups[repo] = []; order.push(repo); }
+    groups[repo].push(r);
+  });
+  // Clear and rebuild
+  table.innerHTML = '';
+  order.forEach(function(repo) {
+    var meta = REPO_META[repo] || { color: '#5b50d6', label: repo };
+    var initial = meta.label.split('/').pop().trim()[0].toUpperCase();
+    var count = groups[repo].length;
+    // Header
+    var hdr = document.createElement('div');
+    hdr.className = 'repo-group-header';
+    var avatar = document.createElement('div');
+    avatar.className = 'rgh-avatar';
+    avatar.style.background = meta.color;
+    avatar.textContent = initial;
+    var name = document.createElement('div');
+    name.className = 'rgh-name';
+    name.textContent = meta.label;
+    var badge = document.createElement('span');
+    badge.className = 'rgh-count';
+    badge.textContent = count + ' finding' + (count !== 1 ? 's' : '');
+    hdr.appendChild(avatar);
+    hdr.appendChild(name);
+    hdr.appendChild(badge);
+    table.appendChild(hdr);
+    // Rows
+    groups[repo].forEach(function(r) { table.appendChild(r); });
+  });
+}
+
+function removeGrouping(panel) {
+  var table = panel.querySelector('.findings-table');
+  if (!table) return;
+  table.querySelectorAll('.repo-group-header').forEach(function(h) { h.remove(); });
+}
+
+// Re-apply grouping on tab switch
+var _origSwitchTab = typeof switchTab !== 'undefined' ? switchTab : null;
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof switchTab !== 'undefined') {
+    var origFn = switchTab;
+    switchTab = function(tab) {
+      origFn(tab);
+      if (groupedMode) {
+        setTimeout(function() {
+          var panel = document.getElementById('panel-' + tab);
+          if (panel) applyGrouping(panel);
+        }, 60);
+      }
+    };
+  }
+});
+</script>
 <script src="gate.js"></script>
 </body>
 </html>
